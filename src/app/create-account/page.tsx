@@ -3,8 +3,9 @@ import React from 'react'
 import type { Metadata } from 'next'
 import { FaLock, FaUnlock  } from "react-icons/fa";
 import Link from 'next/link';
-import LoginSvg from '@/static/svgs/Login';
+import RegisterSvg from '@/static/svgs/Register';
 import { IoMdArrowRoundBack } from "react-icons/io";
+import LoginSvg from '@/static/svgs/Login';
 
 type Props = {}
 
@@ -27,20 +28,23 @@ const page = (props: Props) => {
             </div>
             <div className='flex flex-col justify-center w-full lg:w-5/12 md:w-[640px]'>
                 <h1 className='font-medium text-3xl tracking-wide leading-9'>Hello,</h1>
-                <h2 className='font-medium text-3xl tracking-wide leading-9'>Welcome back!</h2>
+                <h2 className='font-medium text-3xl tracking-wide leading-9'>Create account!</h2>
                 <form className='flex flex-col justify-center w-full'>
-                    <input className='w-full px-3 py-3 bg-transparent border-b border-b-[#151515] outline-none my-3' type='email' placeholder='Email' name='email'/>
-                    <div className='flex flex-row items-center justify-center w-full border-b border-b-[#151515] pr-3'>
-                        <input className='w-full pl-3 pr-5 py-3 bg-transparent outline-none' type='password' placeholder='Password' name='password'/>
+                    <input className='w-full px-2 py-3 bg-transparent border-b border-b-[#151515] outline-none my-3' type='email' placeholder='Email' name='email'/>
+                    <input className='w-full px-2 py-3 bg-transparent border-b border-b-[#151515] outline-none mb-3' type='text' placeholder='Username' name='userna,e'/>
+                    <div className='flex flex-row items-center justify-center w-full border-b border-b-[#151515] pr-2'>
+                        <input className='w-full pl-2 pr-5 py-3 bg-transparent outline-none' type='password' placeholder='Password' name='password'/>
                         <FaLock />
                         {/* <FaUnlock /> */}
                     </div>
-                    <div className='mt-4 mb-5'>
-                        <Link href='/forgot-password' className='text-blue-500'>Forgot password?</Link>
+                    <div className='flex flex-row items-center justify-center w-full border-b border-b-[#151515] pr-2 mt-3'>
+                        <input className='w-full pl-2 pr-5 py-3 bg-transparent outline-none' type='password' placeholder='Repeat password' name='RepeatPassword'/>
+                        <FaLock />
+                        {/* <FaUnlock /> */}
                     </div>
-                    <button type='submit' className='w-full bg-blue-500 text-white border-none py-2 tracking-wide rounded-md'>Login</button>
+                    <button type='submit' className='w-full bg-blue-500 text-white border-none py-2 mt-8 tracking-wide rounded-md'>Create account</button>
                 </form>
-                <p className='mt-4'>Don't have an account?<Link href='/create-account' className='text-blue-500 pl-1'>Click Here</Link></p>
+                <p className='mt-4'>Already have an account?<Link href='/login' className='text-blue-500 pl-1'>Click Here</Link></p>
             </div>
         </div>
     </div>
