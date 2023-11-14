@@ -5,13 +5,12 @@ import { FaLock, FaUnlock  } from "react-icons/fa";
 import Link from 'next/link';
 import RegisterSvg from '@/static/svgs/Register';
 import { IoMdArrowRoundBack } from "react-icons/io";
-import LoginSvg from '@/static/svgs/Login';
 
 type Props = {}
 
 export const metadata: Metadata = {
-    title: 'Login | SocialMediaApp',
-    description: 'Login form for SocialMediaApp',
+    title: 'Create account | SocialMediaApp',
+    description: 'Create account form for SocialMediaApp',
 }
 
 const page = (props: Props) => {
@@ -24,7 +23,7 @@ const page = (props: Props) => {
         </div>
         <div className='flex flex-col items-center justify-center w-10/12 pt-28 sm:min-h-screen sm:pt-0 lg:flex-row lg:justify-between lg:w-[860px] xl:w-[1000px] 2xl:w-[1100px]'>
             <div className='hidden lg:flex w-6/12'>
-                <LoginSvg/>
+                <RegisterSvg/>
             </div>
             <div className='flex flex-col justify-center w-full lg:w-5/12 md:w-[640px]'>
                 <h1 className='font-medium text-3xl tracking-wide leading-9'>Hello,</h1>
