@@ -14,10 +14,10 @@ const Navbar = (props: Props) => {
     }
 
     return (
-        <nav className="w-full flex items-center justify-center">
-            <div className="w-10/12 flex flex-row items-center justify-between mt-2 max-w-[1700px] lg:w-11/12 2xl:w-10/12">
-                <Link className="tracking-wide text-2xl font-lg" href='/'>Smedia</Link>
-                <div className="flex">
+        <nav className="w-full flex items-center justify-center fixed bg-[#000] pt-1 pb-3">
+            <div className="w-10/12 flex flex-row items-center justify-between mt-2 max-w-[1700px]">
+                <Link className="tracking-wide text-2xl font-lg" href='/'>SocialMedia</Link>
+                <div className="flex items-center justify-center">
                     <div className="hidden sm:flex rounded-full items-center bg-[#111] pr-3 pl-4 box-border lg:w-[330px]">
                         <input className="py-2 border-none bg-[#111] mr-4 outline-none lg:w-full" type="text" placeholder="Search"/>
                         <IoMdSearch size={25}/>

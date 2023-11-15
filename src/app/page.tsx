@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className='w-full flex flex-row items-center justify-center'>
-      <div className='w-10/12 flex flex-row justify-center mt-8 max-w-[1700px] sm:mt-10 lg:justify-between lg:w-11/12 2xl:w-10/12'>
+      <div className='w-10/12 flex flex-row justify-center mt-24 max-w-[1700px] lg:justify-between lg:mt-28'>
         <DrawerNavLeft/>
-        <div className='flex flex-col w-full md:w-[600px] lg:w-5/12'>
+        <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
           <Article/>
           <Article/>
         </div>
