@@ -26,7 +26,7 @@ const Article = (props: Props) => {
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
             <button className='text-blue-500 mt-1 mb-4'>Load more</button>
         </div>
-        <img src={PostImage.src} alt='Main'/>
+        <img src={PostImage.src} className='aspect-[6/5]' alt='Main'/>
         <div className='flex items-start justify-between w-full mt-4 border-b border-b-[#222] pb-4 mb-4'>
             <div className='flex'>
                 <button className='mr-4 flex flex-col items-center sm:flex-row'>

@@ -16,7 +16,7 @@ const page = (props: Props) => {
       <div className='w-10/12 flex flex-row justify-center mt-24 max-w-[1700px] lg:justify-between lg:mt-28'>
         <DrawerNavLeft/>
         <div className='flex flex-col w-full lg:w-8/12 2xl:w-9/12'>
-            <h1 className='text-2xl tracking-wider pt-3 pb-4 px-4 mb-6 rounded-md bg-[#060606]'>Friend Invitations</h1>
+            <h1 className='text-2xl tracking-wider pt-3 pb-5 mb-10 border-b border-b-[#111]'>Friend Invitations</h1>
             <div className='w-full grid grid-cols-2 gap-5 sm:grid-cols-3 lg-ml-10 xl:grid-cols-4 xl:gap-7 2xl:grid-cols-5'>
                 <FriendBlock/>
                 <FriendBlock/>
@@ -24,7 +24,7 @@ const page = (props: Props) => {
                 <FriendBlock/>
                 <FriendBlock/>
             </div>
-            <h1 className='text-2xl tracking-wider pt-3 pb-4 px-4 mb-6 rounded-md bg-[#060606] mt-10'>Your Friends</h1>
+            <h1 className='text-2xl tracking-wider pt-10 pb-5 mb-10 border-b border-b-[#111]'>Your Friends</h1>
             <div className='w-full grid grid-cols-2 gap-5 sm:grid-cols-3 lg-ml-10 xl:grid-cols-4 xl:gap-7 2xl:grid-cols-5'>
                 <FriendBlock/>
                 <FriendBlock/>
