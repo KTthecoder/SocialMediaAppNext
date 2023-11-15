@@ -27,24 +27,11 @@ const page = (props: Props) => {
                     <p className='text-gray-300 tracking-wide border-t border-t-[#111] pt-3'><span className='font-medium text-gray-200'>Found for: </span>text to search</p>
                 </div>
                 <div className='flex flex-col mb-7 border-b border-b-[#111] pb-5'>
-                    <h1 className='text-2xl tracking-wider pt-3 flex items-center'><GrGroup size={25} className='mr-3'/>Groups</h1>
-                </div>
-                <GroupHorizontal/>
-                <GroupHorizontal/>
-                <GroupHorizontal/>
-                <Link className='bg-[#0a0a0a] rounded-md py-2 text-center mb-5 mt-2' href='/'>Load more</Link>
-                <div className='flex flex-col mb-7 border-b border-b-[#111] pb-5'>
                     <h1 className='text-2xl tracking-wider pt-3 flex items-center'><LuUsers size={25} className='mr-3'/>People</h1>
                 </div>
                 <FriendHorizontal/>
                 <FriendHorizontal/>
                 <FriendHorizontal/>
-                <Link className='bg-[#0a0a0a] rounded-md py-2 text-center mb-5 mt-2' href='/'>Load more</Link>
-                <div className='flex flex-col mb-10 border-b border-b-[#111] pb-5 mt-2'>
-                    <h1 className='text-2xl tracking-wider pt-3 flex items-center'><MdOutlineArticle size={25} className='mr-3'/> Posts</h1>
-                </div>
-                <Article/>
-                <Article/>
                 <Link className='bg-[#0a0a0a] rounded-md py-2 text-center mb-5 mt-2' href='/'>Load more</Link>
             </div>
             <div className="hidden xl:flex flex-col lg:w-3/12 lg:max-w-[270px]"></div>
