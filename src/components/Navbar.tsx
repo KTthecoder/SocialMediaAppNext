@@ -15,7 +15,7 @@ const Navbar = (props: Props) => {
 
     return (
         <nav className="w-full flex items-center justify-center">
-            <div className="w-10/12 flex flex-row items-center justify-between mt-2">
+            <div className="w-10/12 flex flex-row items-center justify-between mt-2 max-w-[1700px] lg:w-11/12 2xl:w-10/12">
                 <Link className="tracking-wide text-2xl font-lg" href='/'>Smedia</Link>
                 <div className="flex">
                     <div className="hidden sm:flex rounded-full items-center bg-[#111] pr-3 pl-4 box-border lg:w-[330px]">
