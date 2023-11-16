@@ -3,6 +3,7 @@ import DrawerNavLeft from '@/components/DrawerNavLeft'
 import type { Metadata } from 'next'
 import ProfileImg from '@/static/images/shortImg.jpeg'
 import { MdOutlineArticle } from "react-icons/md";
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Account | SocialMediaApp',
@@ -39,7 +40,7 @@ const page = (props: Props) => {
           </div>
           <p className='text-sm mt-2 sm:text-base text-gray-200'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Commodo viverra maecenas accumsan lacus.</p>
           <div className='mt-4'>
-            <button className='bg-[#111] rounded-md py-1 px-4 mr-4'>Edit profile</button>
+            <Link href='/account/edit-account' className='bg-[#111] rounded-md py-1 px-4 mr-4'>Edit profile</Link>
             <button className='bg-[#111] rounded-md py-1 px-4'>Share profile</button>
             {/* <button className='bg-blue-500 rounded-md py-1 px-4 mr-4'>Add to friends</button>
             <button className='bg-red-500 rounded-md py-1 px-4 mr-4'>Remove from friends</button> */}
