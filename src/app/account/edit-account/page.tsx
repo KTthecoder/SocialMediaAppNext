@@ -34,7 +34,11 @@ const page = (props: Props) => {
                     <label className='mt-2 pb-3 tracking-wide border-b border-b-[#111] w-full font-medium'>Description</label>
                     <textarea className='w-full py-3 bg-transparent outline-none' placeholder='Description' name='description'/>
                 </div>
-                <button type='submit' className='w-full bg-blue-500 text-white border-none py-2 tracking-wide rounded-md mt-5'>Login</button>
+                <div className='flex flex-col md:flex-row'>
+                    <button type='submit' className='w-full bg-blue-500 text-white border-none py-2 tracking-wide rounded-md mt-5'>Edit profile</button>
+                    <Link className='w-full bg-[#111] text-white border-none py-2 tracking-wide rounded-md mt-5 text-center md:ml-5' href='/account/change-password'>Change password</Link>
+                </div>
+                
             </form>
         </div>
         <div className="hidden xl:flex flex-col lg:w-3/12 lg:max-w-[270px]"></div>
