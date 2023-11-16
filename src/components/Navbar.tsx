@@ -9,7 +9,6 @@ type Props = {}
 const Navbar = (props: Props) => {
     const pathname = usePathname()
     const router = useRouter()
-    // || pathname.startsWith('/post/')
 
     if(pathname === '/login' || pathname === '/create-account' || pathname === '/forgot-password' ){
         return null
@@ -27,7 +26,7 @@ const Navbar = (props: Props) => {
                     <Link className="py-2 sm:hidden" href='/search/search-text'>
                         <IoMdSearch size={25}/>
                     </Link>
-                    <Link className="py-2 mx-3 sm:bg-blue-500 sm:py-2 sm:px-2 sm:rounded-full" href='/create-post'>
+                    <Link className="py-2 mx-3 sm:bg-blue-500 sm:py-2 sm:px-2 sm:rounded-full" href='/account/create-post'>
                         <IoMdAdd size={25}/>
                     </Link>
                     <Link className="py-2 sm:bg-blue-500 sm:py-2 sm:px-2 sm:rounded-full" href='/login'>
