@@ -1,0 +1,123 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum GroupStatus {
+  PUBLIC
+  PRIVATE
+}
+
+model Users {
+  id            String          @id @default(uuid())
+  username      String          @unique
+  email         String          @unique
+  password      String
+  description   String
+  profileImg    String
+  profileImgAlt String
+  Friends1      Friends[]       @relation("user1")
+  Friends2      Friends[]       @relation("user2")
+  PostComments  PostComments[]
+  LikedComments LikedComments[]
+  LikedPosts    LikedPosts[]
+  DisLikedPosts DisLikedPosts[]
+  UserInGroup   UserInGroup[]
+}
+
+model Friends {
+  id        Int      @id @default(autoincrement())
+  user1     Users    @relation("user1", fields: [user1Id], references: [id])
+  user1Id   String
+  user2     Users    @relation("user2", fields: [user2Id], references: [id])
+  user2Id   String
+  createdAt DateTime @default(now())
+}
+
+model Groups {
+  id          String        @id @default(uuid())
+  name        String        @unique
+  description String
+  createdAt   DateTime      @default(now())
+  status      GroupStatus   @default(PUBLIC)
+  UserInGroup UserInGroup[]
+  Posts       Posts[]
+}
+
+model UserInGroup {
+  id        Int      @id @default(autoincrement())
+  user      Users    @relation(fields: [usersId], references: [id])
+  usersId   String
+  group     Groups   @relation(fields: [groupsId], references: [id])
+  groupsId  String
+  createdAt DateTime @default(now())
+}
+
+model Posts {
+  id            String          @id @default(uuid())
+  description   String
+  createdAt     DateTime        @default(now())
+  likes         Int             @default(0)
+  disLikes      Int             @default(0)
+  PostImages    PostImages[]
+  LikedPosts    LikedPosts[]
+  DisLikedPosts DisLikedPosts[]
+  SavedPosts    SavedPosts[]
+  group         Groups?         @relation(fields: [groupsId], references: [id])
+  groupsId      String?
+}
+
+model SavedPosts {
+  id        Int      @id @default(autoincrement())
+  post      Posts    @relation(fields: [postsId], references: [id])
+  postsId   String
+  createdAt DateTime @default(now())
+}
+
+model LikedPosts {
+  id      Int    @id @default(autoincrement())
+  user    Users  @relation(fields: [usersId], references: [id])
+  usersId String
+  post    Posts  @relation(fields: [postId], references: [id])
+  postId  String
+}
+
+model DisLikedPosts {
+  id      Int    @id @default(autoincrement())
+  user    Users  @relation(fields: [usersId], references: [id])
+  usersId String
+  post    Posts  @relation(fields: [postsId], references: [id])
+  postsId String
+}
+
+model PostComments {
+  id            Int             @id @default(autoincrement())
+  user          Users           @relation(fields: [usersId], references: [id])
+  usersId       String
+  text          String
+  LikedComments LikedComments[]
+  createdAt     DateTime        @default(now())
+}
+
+model LikedComments {
+  id             Int          @id @default(autoincrement())
+  user           Users        @relation(fields: [usersId], references: [id])
+  usersId        String
+  comment        PostComments @relation(fields: [postCommentsId], references: [id])
+  postCommentsId Int
+}
+
+model PostImages {
+  id     Int    @id @default(autoincrement())
+  src    String
+  alt    String
+  post   Posts  @relation(fields: [postId], references: [id])
+  postId String
+}
