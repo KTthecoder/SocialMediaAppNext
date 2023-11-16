@@ -6,6 +6,7 @@ import { BiDislike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import { MdSaveAlt } from "react-icons/md";
 import PostImage from '../static/images/postImage.png'
+import Link from 'next/link';
 
 type Props = {}
 
@@ -26,7 +27,10 @@ const Article = (props: Props) => {
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
             <button className='text-blue-500 mt-1 mb-4'>Load more</button>
         </div>
-        <img src={PostImage.src} className='aspect-[6/5]' alt='Main'/>
+        <Link href='/post/post-slug'>
+            <img src={PostImage.src} className='aspect-[6/5]' alt='Main'/>
+        </Link>
+        
         <div className='flex items-start justify-between w-full mt-4 border-b border-b-[#222] pb-4 mb-4'>
             <div className='flex'>
                 <button className='mr-4 flex flex-col items-center sm:flex-row'>

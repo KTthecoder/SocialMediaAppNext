@@ -9,8 +9,9 @@ type Props = {}
 const Navbar = (props: Props) => {
     const pathname = usePathname()
     const router = useRouter()
+    // || pathname.startsWith('/post/')
 
-    if(pathname === '/login' || pathname === '/create-account' || pathname === '/forgot-password'){
+    if(pathname === '/login' || pathname === '/create-account' || pathname === '/forgot-password' ){
         return null
     }
 
