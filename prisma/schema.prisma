@@ -20,9 +20,9 @@ model Users {
   username      String          @unique
   email         String          @unique
   password      String
-  description   String
-  profileImg    String
-  profileImgAlt String
+  description   String?
+  profileImg    String?
+  profileImgAlt String?
   Friends1      Friends[]       @relation("user1")
   Friends2      Friends[]       @relation("user2")
   PostComments  PostComments[]
@@ -62,7 +62,7 @@ model UserInGroup {
 
 model Posts {
   id            String          @id @default(uuid())
-  description   String
+  description   String?
   createdAt     DateTime        @default(now())
   likes         Int             @default(0)
   disLikes      Int             @default(0)
