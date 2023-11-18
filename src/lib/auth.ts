@@ -12,7 +12,7 @@ export const authOptions:NextAuthOptions = {
     },
     secret: process.env.NEXTAUTH_URL,
     pages: {
-        signIn: '/sign-in'
+        signIn: '/login'
     },
     providers: [
         CredentialsProvider({
@@ -50,7 +50,7 @@ export const authOptions:NextAuthOptions = {
                 return {
                     ...token,
                     id: user.id,
-                    username: user.name,
+                    // username: user.username,
                 }
             }
             return token

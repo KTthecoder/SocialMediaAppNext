@@ -5,6 +5,7 @@ import { FaLock, FaUnlock  } from "react-icons/fa";
 import Link from 'next/link';
 import LoginSvg from '@/static/svgs/Login';
 import { IoMdArrowRoundBack } from "react-icons/io";
+import LoginForm from '@/components/forms/LoginForm';
 
 type Props = {}
 
@@ -28,18 +29,7 @@ const page = (props: Props) => {
             <div className='flex flex-col justify-center w-full lg:w-5/12 md:w-[640px]'>
                 <h1 className='font-medium text-3xl tracking-wide leading-9'>Hello,</h1>
                 <h2 className='font-medium text-3xl tracking-wide leading-9'>Welcome back!</h2>
-                <form className='flex flex-col justify-center w-full'>
-                    <input className='w-full px-3 py-3 bg-transparent border-b border-b-[#151515] outline-none my-3' type='email' placeholder='Email' name='email'/>
-                    <div className='flex flex-row items-center justify-center w-full border-b border-b-[#151515] pr-3'>
-                        <input className='w-full pl-3 pr-5 py-3 bg-transparent outline-none' type='password' placeholder='Password' name='password'/>
-                        <FaLock />
-                        {/* <FaUnlock /> */}
-                    </div>
-                    <div className='mt-4 mb-5'>
-                        <Link href='/forgot-password' className='text-blue-500'>Forgot password?</Link>
-                    </div>
-                    <button type='submit' className='w-full bg-blue-500 text-white border-none py-2 tracking-wide rounded-md'>Login</button>
-                </form>
+                <LoginForm/>
                 <p className='mt-4'>Don't have an account?<Link href='/create-account' className='text-blue-500 pl-1'>Click Here</Link></p>
             </div>
         </div>
