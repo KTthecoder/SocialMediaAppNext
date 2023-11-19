@@ -30,6 +30,7 @@ model Users {
   LikedPosts    LikedPosts[]
   DisLikedPosts DisLikedPosts[]
   UserInGroup   UserInGroup[]
+  Posts         Posts[]
 }
 
 model Friends {
@@ -72,6 +73,8 @@ model Posts {
   SavedPosts    SavedPosts[]
   group         Groups?         @relation(fields: [groupsId], references: [id])
   groupsId      String?
+  user          Users           @relation(fields: [usersId], references: [id])
+  usersId       String
 }
 
 model SavedPosts {

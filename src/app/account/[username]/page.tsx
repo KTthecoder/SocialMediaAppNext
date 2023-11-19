@@ -20,15 +20,13 @@ type Props = {
 
 const page = async (props: Props) => {
   const session = await getServerSession(authOptions)
-  const user = await prisma.users.findUnique({where: {id: props.params.username}, select: {
+  const user = await prisma.users.findUnique({where: {username: props.params.username}, select: {
     username: true,
     description: true,
     profileImg: true,
     profileImgAlt: true,
   }})
-
-  console.log(session?.user.username + " - " + user?.username)
-
+  
   if(!user){
     return notFound()
   }
@@ -58,7 +56,7 @@ const page = async (props: Props) => {
               </div>
             </div>
           </div>
-          <p className='text-sm mt-2 sm:text-base text-gray-200'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Commodo viverra maecenas accumsan lacus.</p>
+          <p className='text-sm mt-2 sm:text-base text-gray-200'>{user?.description}</p>
           <div className='mt-4'>
             {session?.user.username === user.username ?
             <>

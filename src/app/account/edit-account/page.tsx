@@ -35,7 +35,7 @@ const page = async (props: Props) => {
               <img className='w-[70px] aspect-square rounded-full' src={ProfileImg.src} alt='Profile'/>
               <button className='text-blue-500 mt-4'>Change image</button>
             </div>
-            {user != null ? <EditAccountForm username={user.username} description={user.description}/> : null}
+            {user != null ? <EditAccountForm username={user.username} description={user.description} id={session.user.id}/> : null}
           </div>
           <div className="hidden xl:flex flex-col lg:w-3/12 lg:max-w-[270px]"></div>
         </div>

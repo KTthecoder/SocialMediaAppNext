@@ -30,3 +30,34 @@ export async function POST(req:Request){
         return NextResponse.json({message: 'Something went wrong'}, {status: 500})
     }
 }
+
+export async function PUT(req:Request){
+    try{
+        const body = await req.json()
+        const { id, username, description } = body
+
+        const existingUser = await prisma.users.findUnique({where: {id: id}})
+        if(!existingUser){
+            return NextResponse.json({message: 'User with that id does not exists'}, {status: 409})
+        }
+
+        if(existingUser.username != username){
+            const existingUserByUsername = await prisma.users.findUnique({where: {username: username}})
+            if(existingUserByUsername){
+                return NextResponse.json({message: 'User with that username already exists'}, {status: 409})
+            }
+        }
+
+        const updatedUser = await prisma.users.update({where: {id: id}, data: {
+            username: username,
+            description: description,
+            email: existingUser.email,
+            password: existingUser.password,
+        }})
+        
+        return NextResponse.json({message: 'User updated succesfully'}, {status: 200})
+    }
+    catch (error){
+        return NextResponse.json({message: 'Something went wrong'}, {status: 500})
+    }
+}
