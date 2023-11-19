@@ -4,15 +4,35 @@ import type { Metadata } from 'next'
 import ProfileImg from '@/static/images/shortImg.jpeg'
 import { MdOutlineArticle } from "react-icons/md";
 import Link from 'next/link';
+import prisma from '@/lib/db';
+import { notFound } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 export const metadata: Metadata = {
   title: 'Account | SocialMediaApp',
   description: 'Account page of SocialMediaApp',
 }
 
-type Props = {}
+type Props = {
+  params: { username: string }
+}
 
-const page = (props: Props) => {
+const page = async (props: Props) => {
+  const session = await getServerSession(authOptions)
+  const user = await prisma.users.findUnique({where: {id: props.params.username}, select: {
+    username: true,
+    description: true,
+    profileImg: true,
+    profileImgAlt: true,
+  }})
+
+  console.log(session?.user.username + " - " + user?.username)
+
+  if(!user){
+    return notFound()
+  }
+
   return (
     <main className='w-full flex flex-row items-center justify-center'>
       <div className='w-10/12 flex flex-row justify-center mt-24 max-w-[1700px] lg:justify-between lg:mt-28'>
@@ -21,7 +41,7 @@ const page = (props: Props) => {
           <div className='flex flex-row items-start justify-between'>
             <div className='flex flex-col'>
               <img className='w-[70px] aspect-square rounded-full' src={ProfileImg.src} alt='Profile'/>
-              <p className='mt-3 tracking-wider font-medium sm:mt-4'>Username</p>
+              <p className='mt-3 tracking-wider font-medium sm:mt-4'>{user?.username}</p>
             </div>
             <div className='flex flex-row justify-end items-center'>
               <div className='flex flex-col items-center justify-center'>
@@ -40,10 +60,16 @@ const page = (props: Props) => {
           </div>
           <p className='text-sm mt-2 sm:text-base text-gray-200'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Commodo viverra maecenas accumsan lacus.</p>
           <div className='mt-4'>
-            <Link href='/account/edit-account' className='bg-[#111] rounded-md py-1 px-4 mr-4'>Edit profile</Link>
-            <button className='bg-[#111] rounded-md py-1 px-4'>Share profile</button>
-            {/* <button className='bg-blue-500 rounded-md py-1 px-4 mr-4'>Add to friends</button>
-            <button className='bg-red-500 rounded-md py-1 px-4 mr-4'>Remove from friends</button> */}
+            {session?.user.username === user.username ?
+            <>
+              <Link href='/account/edit-account' className='bg-[#111] rounded-md py-1 px-4 mr-4'>Edit profile</Link>
+              <button className='bg-[#111] rounded-md py-1 px-4'>Share profile</button>
+            </>
+            : <button className='bg-blue-500 rounded-md py-1 px-4 mr-4'>Add to friends</button>}
+            
+
+          {/* <button className='bg-blue-500 rounded-md py-1 px-4 mr-4'>Add to friends</button>
+          <button className='bg-red-500 rounded-md py-1 px-4 mr-4'>Remove from friends</button> */}
           </div>
           <div className='flex flex-col mb-10 border-b border-b-[#111] pb-5 mt-8'>
             <h1 className='text-2xl tracking-wider pt-3 flex items-center'><MdOutlineArticle size={25} className='mr-3'/> Your Posts</h1>
