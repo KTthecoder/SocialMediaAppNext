@@ -8,7 +8,18 @@ import { MdSaveAlt } from "react-icons/md";
 import PostImage from '../static/images/postImage.png'
 import Link from 'next/link';
 
-type Props = {}
+type Props = {
+    username: string,
+    profileImg?: string,
+    profileImgAlt?: string,
+    createdAt: string,
+    description?: string,
+    postImages?: string[],
+    likes?: number,
+    disLikes?: number,
+    commentsCount?: number,
+    // comments: string[]
+}
 
 const Article = (props: Props) => {
   return (
@@ -16,15 +27,15 @@ const Article = (props: Props) => {
         <div className='w-full flex flex-row items-center justify-between border-b-[#222] border-b mb-2 pb-3'>
             <div className='flex flex-row items-center justify-start'>
                 <img className='w-[40px] h-[40px] rounded-full bg-center bg-cover' src={ProfileImg.src} alt='Profile'/>
-                <p className='pl-3'>Username</p>
+                <p className='pl-3'>{props.username}</p>
             </div>
             <div className='items-center justify-end w-5/12 hidden sm:flex'>
                 <IoCalendarClearOutline/>
-                <p className='pl-2'>09-11-2023</p>
+                <p className='pl-2'>{props.createdAt}</p>
             </div>
         </div>
-        <div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
+        <div className='flex items-start justify-start flex-col w-full'>
+            <p>{props.description}</p>
             <button className='text-blue-500 mt-1 mb-4'>Load more</button>
         </div>
         <Link href='/post/post-slug'>
@@ -35,15 +46,15 @@ const Article = (props: Props) => {
             <div className='flex'>
                 <button className='mr-4 flex flex-col items-center sm:flex-row'>
                     <FaRegHeart className='text-[21px] sm:text-[23px]'/>
-                    <p className='sm:pl-2 text-sm sm:text-base'>22</p>
+                    <p className='sm:pl-2 text-sm sm:text-base'>{props.likes}</p>
                 </button>
                 <button className='mr-4 flex flex-col items-center sm:flex-row'>
                     <BiDislike className='text-[21px] sm:text-[23px]'/>
-                    <p className='sm:pl-2 text-sm sm:text-base'>33</p>
+                    <p className='sm:pl-2 text-sm sm:text-base'>{props.disLikes}</p>
                 </button>
                 <button className='flex flex-col items-center sm:flex-row'>
                     <FaRegComment className='text-[21px] sm:text-[23px]'/>
-                    <p className='sm:pl-2 text-sm sm:text-base'>44</p>
+                    <p className='sm:pl-2 text-sm sm:text-base'>{props.commentsCount}</p>
                 </button>
             </div>
             <button className='flex flex-col items-center'>

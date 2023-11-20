@@ -75,6 +75,7 @@ model Posts {
   groupsId      String?
   user          Users           @relation(fields: [usersId], references: [id])
   usersId       String
+  PostComments  PostComments[]
 }
 
 model SavedPosts {
@@ -107,6 +108,8 @@ model PostComments {
   text          String
   LikedComments LikedComments[]
   createdAt     DateTime        @default(now())
+  posts         Posts           @relation(fields: [postsId], references: [id])
+  postsId       String
 }
 
 model LikedComments {

@@ -25,8 +25,23 @@ const page = async (props: Props) => {
     description: true,
     profileImg: true,
     profileImgAlt: true,
+    id: true
   }})
   
+  const posts = await prisma.posts.findMany({where: {usersId: user?.id}, select: {
+    description: true,
+    createdAt: true,
+    likes: true,
+    disLikes: true,
+    user: {
+      select: {
+        username: true,
+        profileImgAlt: true,
+        profileImg: true,
+      }
+    }
+  }})
+
   if(!user){
     return notFound()
   }
@@ -64,16 +79,17 @@ const page = async (props: Props) => {
               <button className='bg-[#111] rounded-md py-1 px-4'>Share profile</button>
             </>
             : <button className='bg-blue-500 rounded-md py-1 px-4 mr-4'>Add to friends</button>}
-            
-
           {/* <button className='bg-blue-500 rounded-md py-1 px-4 mr-4'>Add to friends</button>
           <button className='bg-red-500 rounded-md py-1 px-4 mr-4'>Remove from friends</button> */}
           </div>
           <div className='flex flex-col mb-10 border-b border-b-[#111] pb-5 mt-8'>
-            <h1 className='text-2xl tracking-wider pt-3 flex items-center'><MdOutlineArticle size={25} className='mr-3'/> Your Posts</h1>
+            <h1 className='text-2xl tracking-wider pt-3 flex items-center'><MdOutlineArticle size={25} className='mr-3'/> 
+            {session?.user.username === user.username ? " Your Posts" : "User's Posts"}</h1>
           </div>
-          <Article/>
-          <Article/>
+          {posts.map((item) => (
+            <Article createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
+            likes={item.likes} disLikes={item.disLikes}/>
+          ))}
         </div>
         <div className="hidden xl:flex flex-col lg:w-3/12 lg:max-w-[270px]"></div>
       </div>
