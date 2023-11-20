@@ -33,13 +33,15 @@ const page = async (props: Props) => {
     createdAt: true,
     likes: true,
     disLikes: true,
+    id: true,
     user: {
       select: {
         username: true,
         profileImgAlt: true,
         profileImg: true,
       }
-    }
+    },
+    SavedPosts: {select: {postsId: true}}
   }})
 
   if(!user){
@@ -86,8 +88,8 @@ const page = async (props: Props) => {
             <h1 className='text-2xl tracking-wider pt-3 flex items-center'><MdOutlineArticle size={25} className='mr-3'/> 
             {session?.user.username === user.username ? " Your Posts" : "User's Posts"}</h1>
           </div>
-          {posts.map((item) => (
-            <Article createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
+          {posts.map((item, key) => (
+            <Article key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
             likes={item.likes} disLikes={item.disLikes}/>
           ))}
         </div>
