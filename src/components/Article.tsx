@@ -40,7 +40,7 @@ const Article = (props: Props) => {
                 <p>{props.description}</p>
                 <button className='text-blue-500 mt-1 mb-4'>Load more</button>
             </div>
-            <Link href='/post/post-slug'>
+            <Link href={`/post/${props.id}`}>
                 <img src={PostImage.src} className='aspect-[6/5]' alt='Main'/>
             </Link>
             
