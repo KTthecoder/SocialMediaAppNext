@@ -51,7 +51,7 @@ const DrawerNavLeft = (props: Props) => {
             </>
             : 
             <>
-                <Link className="flex items-center justify-start w-full border-b-[#222] border-b pb-5" href='/account/username'>
+                <Link className="flex items-center justify-start w-full border-b-[#222] border-b pb-5" href={`/account/${props.user?.username}`}>
                     <img className="w-[40px] h-[40px] rounded-full" src={UserImage.src} alt='User'/>
                     <p className="pl-3">{props.user?.username}</p>
                 </Link>

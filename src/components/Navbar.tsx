@@ -3,12 +3,14 @@ import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { IoMdSearch, IoMdAdd } from "react-icons/io";
 import { FiUser } from "react-icons/fi";
+import { useSession } from "next-auth/react"
 
 type Props = {}
 
 const Navbar = (props: Props) => {
     const pathname = usePathname()
     const router = useRouter()
+    const { data: session, status } = useSession()
 
     if(pathname === '/login' || pathname === '/create-account' || pathname === '/forgot-password' ){
         return null
@@ -29,9 +31,13 @@ const Navbar = (props: Props) => {
                     <Link className="py-2 mx-3 sm:bg-blue-500 sm:py-2 sm:px-2 sm:rounded-full" href='/account/create-post'>
                         <IoMdAdd size={25}/>
                     </Link>
-                    <Link className="py-2 sm:bg-blue-500 sm:py-2 sm:px-2 sm:rounded-full" href='/login'>
+                    {status === 'authenticated' ?
+                    <Link className="py-2 sm:bg-blue-500 sm:py-2 sm:px-2 sm:rounded-full" href={`/account/${session.user.username}`}>
                         <FiUser size={25}/>
                     </Link>
+                    : <Link className="py-2 sm:bg-blue-500 sm:py-2 sm:px-2 sm:rounded-full" href='/login'>
+                        <FiUser size={25}/>
+                    </Link>}
                 </div>
             </div>
         </nav>

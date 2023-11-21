@@ -48,7 +48,7 @@ export default async function Home() {
           </div>
           <DrawerNavRight isAuthenticated={true}/>
         </div>
-      </main>
+      </main> 
     )
   }
 
