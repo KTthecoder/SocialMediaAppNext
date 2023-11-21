@@ -2,7 +2,7 @@ import prisma from "@/lib/db";
 import { NextResponse } from "next/server";
 
 export async function POST(req:Request){
-    try{
+    // try{
         const body = await req.json()
         const { description, images, username } = body
     
@@ -17,8 +17,8 @@ export async function POST(req:Request){
         }})
     
         return NextResponse.json({message: 'Post created succesfully'}, {status: 201})
-    }
-    catch (error){
-        return NextResponse.json({message: 'Something went wrong'}, {status: 500})
-    }
+    // }
+    // catch (error){
+    //     return NextResponse.json({message: 'Something went wrong'}, {status: 500})
+    // }
 }

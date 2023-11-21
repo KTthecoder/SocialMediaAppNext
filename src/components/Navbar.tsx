@@ -28,16 +28,23 @@ const Navbar = (props: Props) => {
                     <Link className="py-2 sm:hidden" href='/search/search-text'>
                         <IoMdSearch size={25}/>
                     </Link>
-                    <Link className="py-2 mx-3 sm:bg-blue-500 sm:py-2 sm:px-2 sm:rounded-full" href='/account/create-post'>
-                        <IoMdAdd size={25}/>
-                    </Link>
                     {status === 'authenticated' ?
-                    <Link className="py-2 sm:bg-blue-500 sm:py-2 sm:px-2 sm:rounded-full" href={`/account/${session.user.username}`}>
-                        <FiUser size={25}/>
-                    </Link>
-                    : <Link className="py-2 sm:bg-blue-500 sm:py-2 sm:px-2 sm:rounded-full" href='/login'>
-                        <FiUser size={25}/>
-                    </Link>}
+                    <>
+                        <Link className="py-2 mx-3 sm:bg-blue-500 sm:py-2 sm:px-2 sm:rounded-full" href='/account/create-post'>
+                            <IoMdAdd size={25}/>
+                        </Link>
+                        <Link className="py-2 sm:bg-blue-500 sm:py-2 sm:px-2 sm:rounded-full" href={`/account/${session.user.username}`}>
+                            <FiUser size={25}/>
+                        </Link>
+                    </>
+                    : <>
+                        <Link className="py-2 mx-3 sm:bg-blue-500 sm:py-2 sm:px-2 sm:rounded-full" href='login'>
+                            <IoMdAdd size={25}/>
+                        </Link>
+                        <Link className="py-2 sm:bg-blue-500 sm:py-2 sm:px-2 sm:rounded-full" href='/login'>
+                            <FiUser size={25}/>
+                        </Link>
+                    </>}
                 </div>
             </div>
         </nav>
