@@ -6,7 +6,14 @@ import DrawerFriend from "./DrawerFriend";
 import { useState } from "react";
 import Link from "next/link";
 
-type Props = {}
+type Props = {
+    isAuthenticated: boolean,
+    friends?: [{
+        username: string,
+        profileImg: string,
+        profileImgAlt: string,
+    }]
+}
 
 const DrawerNavRight = (props: Props) => {
     const [showFriends, setShowFriends] = useState(true)
