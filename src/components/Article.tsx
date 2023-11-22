@@ -9,6 +9,7 @@ import Link from 'next/link';
 import SavePostBtn from "./SavePostBtn";
 
 type Props = {
+    userId: string,
     username: string,
     profileImg?: string,
     profileImgAlt?: string,
@@ -27,10 +28,10 @@ const Article = (props: Props) => {
     return (
         <div className='w-full flex flex-col items-center justify-center mb-10'>
             <div className='w-full flex flex-row items-center justify-between border-b-[#222] border-b mb-2 pb-3'>
-                <div className='flex flex-row items-center justify-start'>
+                <Link href={`/account/${props.userId}`} className='flex flex-row items-center justify-start'>
                     <img className='w-[40px] h-[40px] rounded-full bg-center bg-cover' src={ProfileImg.src} alt='Profile'/>
                     <p className='pl-3'>{props.username}</p>
-                </div>
+                </Link>
                 <div className='items-center justify-end w-5/12 hidden sm:flex'>
                     <IoCalendarClearOutline/>
                     <p className='pl-2'>{props.createdAt}</p>

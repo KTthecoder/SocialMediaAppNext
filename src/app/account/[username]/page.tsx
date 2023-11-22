@@ -39,6 +39,7 @@ const page = async (props: Props) => {
         username: true,
         profileImgAlt: true,
         profileImg: true,
+        id: true,
       }
     },
     SavedPosts: {select: {postsId: true}},
@@ -99,7 +100,7 @@ const page = async (props: Props) => {
             {session?.user.username === user.username ? " Your Posts" : "User's Posts"}</h1>
           </div>
           {posts.map((item, key) => (
-            <Article comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
+            <Article userId={item.user.id} comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
             likes={item.likes} disLikes={item.disLikes}/>
           ))}
         </div>

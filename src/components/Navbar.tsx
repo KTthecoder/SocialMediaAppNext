@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation"
 import { IoMdSearch, IoMdAdd } from "react-icons/io";
 import { FiUser } from "react-icons/fi";
 import { useSession } from "next-auth/react"
+import { useState } from "react";
 
 type Props = {}
 
@@ -11,6 +12,7 @@ const Navbar = (props: Props) => {
     const pathname = usePathname()
     const router = useRouter()
     const { data: session, status } = useSession()
+    const [search, setSearch] = useState('')
 
     if(pathname === '/login' || pathname === '/create-account' || pathname === '/forgot-password' ){
         return null
@@ -22,8 +24,11 @@ const Navbar = (props: Props) => {
                 <Link className="tracking-wide text-2xl font-lg" href='/'>SocialMedia</Link>
                 <div className="flex items-center justify-center">
                     <div className="hidden sm:flex rounded-full items-center bg-[#111] pr-3 pl-4 box-border lg:w-[330px]">
-                        <input className="py-2 border-none bg-[#111] mr-4 outline-none lg:w-full" type="text" placeholder="Search"/>
-                        <button onClick={() => router.push('/search/search-text')}><IoMdSearch size={25}/></button>
+                        <input className="py-2 border-none bg-[#111] mr-4 outline-none lg:w-full" type="text" onChange={(e) => setSearch(e.target.value)} placeholder="Search"/>
+                        <button onClick={() => {
+                            router.push(`/search/${search}`)
+                            router.refresh()
+                        }}><IoMdSearch size={25}/></button>
                     </div>
                     <Link className="py-2 sm:hidden" href='/search/search-text'>
                         <IoMdSearch size={25}/>

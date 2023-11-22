@@ -66,10 +66,10 @@ const page = async (props: Props) => {
                     </div>
                     <div className='flex flex-col w-10/12 items-center mt-1 md:w-full lg:w-5/12 lg:mt-0'>
                         <div className='w-full flex flex-row items-center justify-between border-b-[#222] border-b mb-2 pb-3 mt-5 lg:mt-0'>
-                            <div className='flex flex-row items-center justify-start'>
+                            <Link href={`/account/${post.user.id}`} className='flex flex-row items-center justify-start'>
                                 <img className='w-[40px] h-[40px] rounded-full bg-center bg-cover' src={ProfileImg.src} alt='Profile'/>
                                 <p className='pl-3'>{post?.user.username}</p>
-                            </div>
+                            </Link>
                             <div className='items-center justify-end w-5/12 hidden sm:flex'>
                                 <IoCalendarClearOutline/>
                                 <p className='pl-2'>{post?.createdAt.toLocaleDateString()}</p>
