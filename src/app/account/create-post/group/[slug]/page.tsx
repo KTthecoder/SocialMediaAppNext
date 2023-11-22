@@ -27,10 +27,15 @@ const page = async (props: Props) => {
     username: true,
     profileImg: true,
     profileImgAlt: true,
+    id: true,
   }})
   const group = await prisma.groups.findFirst({where: {id: props.params.slug}, select: {
     name: true,
     id: true
+  }})
+
+  const groups = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
+    _count: {select: {UserInGroup: true}}
   }})
 
   if(!session?.user || !user){
@@ -40,7 +45,7 @@ const page = async (props: Props) => {
   return (
     <main className='w-full flex flex-row items-center justify-center'>
       <div className='w-10/12 flex flex-row justify-center mt-24 max-w-[1700px] lg:justify-between lg:mt-28'>
-        <DrawerNavLeft user={{username: user?.username, profileImg: user?.profileImg?.toString(), profileImgAlt: user?.profileImgAlt?.toString()}}/>
+        <DrawerNavLeft groups={groups} user={{username: user?.username, profileImg: user?.profileImg?.toString(), profileImgAlt: user?.profileImgAlt?.toString()}}/>
         <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
           <div className='flex flex-col mb-6 border-b border-b-[#111] pb-5'>
             <h1 className='text-2xl tracking-wider pt-3 flex items-center'><RiPlayListAddFill size={25} className='mr-3'/>Create Post In Group</h1>

@@ -15,7 +15,17 @@ type Props = {
         username?: string,
         profileImg?: string,
         profileImgAlt?: string,
-    } | null
+    } | null,
+    groups?: {
+        image?: string,
+        imageAlt?: string,
+        name?: string,
+        status?: string,
+        id?: string,
+        _count: {
+            UserInGroup: number;
+        }
+    }[] | null
 }
 
 const DrawerNavLeft = (props: Props) => {
@@ -76,15 +86,13 @@ const DrawerNavLeft = (props: Props) => {
                         </button>
                     </div>
                     <div className={`${showGroups === false ? 'hidden' : 'flex'} flex-col items-center w-full mt-5`}>
-                        <DrawerGroup/>
-                        <DrawerGroup/>
-                        <DrawerGroup/>
-                        <DrawerGroup/>
+                        {props.groups?.map((item, key) => (
+                            <DrawerGroup id={item.id} image={item.image} name={item.name} status={item.status} usersCount={item._count.UserInGroup} imageAlt={item.imageAlt} key={key}/>
+                        ))}
                     </div>
                 </div>
             </>
             }
-            
         </div>
     )
 }

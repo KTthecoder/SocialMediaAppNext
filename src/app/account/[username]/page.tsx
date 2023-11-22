@@ -55,6 +55,10 @@ const page = async (props: Props) => {
     }
   }})
 
+  const groups = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
+    _count: {select: {UserInGroup: true}}
+  }})
+
   const postsCount = await prisma.posts.count({where: {usersId: user?.id}})
   const friendsCount = await prisma.friends.count({ where: {
     OR: [{
@@ -72,7 +76,7 @@ const page = async (props: Props) => {
   return (
     <main className='w-full flex flex-row items-center justify-center'>
       <div className='w-10/12 flex flex-row justify-center mt-24 max-w-[1700px] lg:justify-between lg:mt-28'>
-        <DrawerNavLeft user={{username: user?.username, profileImg: user?.profileImg?.toString(), profileImgAlt: user?.profileImgAlt?.toString()}}/>
+        <DrawerNavLeft groups={groups} user={{username: user?.username, profileImg: user?.profileImg?.toString(), profileImgAlt: user?.profileImgAlt?.toString()}}/>
         <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
           <div className='flex flex-row items-start justify-between'>
             <div className='flex flex-col'>

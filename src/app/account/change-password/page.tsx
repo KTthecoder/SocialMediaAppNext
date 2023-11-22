@@ -5,6 +5,9 @@ import ProfileImg from '@/static/images/shortImg.jpeg'
 import { RiUserSettingsLine } from "react-icons/ri";
 import Link from 'next/link';
 import { FaLock, FaUnlock  } from "react-icons/fa";
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import prisma from '@/lib/db';
 
 export const metadata: Metadata = {
   title: 'Account | SocialMediaApp',
@@ -13,11 +16,17 @@ export const metadata: Metadata = {
 
 type Props = {}
 
-const page = (props: Props) => {
+const page = async (props: Props) => {
+  const session = await getServerSession(authOptions)
+  const user = await prisma.users.findFirst({where: {username: session?.user?.username}})
+  const groups = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
+    _count: {select: {UserInGroup: true}}
+  }})
+
   return (
     <main className='w-full flex flex-row items-center justify-center'>
       <div className='w-10/12 flex flex-row justify-center mt-24 max-w-[1700px] lg:justify-between lg:mt-28'>
-        <DrawerNavLeft/>
+        <DrawerNavLeft groups={groups} user={{username: user?.username, profileImg: user?.profileImg?.toString(), profileImgAlt: user?.profileImgAlt?.toString()}}/>
         <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
           <div className='flex flex-col mb-8 border-b border-b-[#111] pb-5'>
             <h1 className='text-2xl tracking-wider pt-3 flex items-center'><RiUserSettingsLine size={25} className='mr-3'/>Change Password</h1>

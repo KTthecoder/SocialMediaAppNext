@@ -70,11 +70,15 @@ export default async function Home() {
     }
   }, orderBy: {createdAt: 'desc'}})
 
+  const groups = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
+    _count: {select: {UserInGroup: true}}
+  }})
+
   if(session?.user){
     return (
       <main className='w-full flex flex-row items-center justify-center'>
         <div className='w-10/12 flex flex-row justify-center mt-24 max-w-[1700px] lg:justify-between lg:mt-28'>
-          <DrawerNavLeft user={{username: user?.username, profileImg: user?.profileImg?.toString(), profileImgAlt: user?.profileImgAlt?.toString()}}/>
+          <DrawerNavLeft groups={groups} user={{username: user?.username, profileImg: user?.profileImg?.toString(), profileImgAlt: user?.profileImgAlt?.toString()}}/>
           <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
             {posts.map((item, key) => (
               <Article userId={item.user.id} comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
@@ -90,7 +94,7 @@ export default async function Home() {
   return (
     <main className='w-full flex flex-row items-center justify-center'>
       <div className='w-10/12 flex flex-row justify-center mt-24 max-w-[1700px] lg:justify-between lg:mt-28'>
-        <DrawerNavLeft user={null}/>
+        <DrawerNavLeft user={null} groups={null}/>
         <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
           {posts.map((item, key) => (
             <Article userId={item.user.id} comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
