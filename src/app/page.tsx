@@ -17,6 +17,30 @@ export default async function Home() {
     username: true,
     profileImg: true,
     profileImgAlt: true,
+    id: true,
+  }})
+
+  const friends = await prisma.friends.findMany({where: {
+    OR: [{
+      user1Id: user?.id,
+    }, {
+      user2Id: user?.id
+    }]
+  }, select: {
+    user1: {
+      select: {
+        username: true,
+        profileImg: true,
+        profileImgAlt: true,
+      }
+    },
+    user2: {
+      select: {
+        username: true,
+        profileImg: true,
+        profileImgAlt: true,
+      }
+    }
   }})
   
   const posts = await prisma.posts.findMany({select: {
@@ -57,7 +81,7 @@ export default async function Home() {
               likes={item.likes} disLikes={item.disLikes}/>
             ))}
           </div>
-          <DrawerNavRight isAuthenticated={true}/>
+          <DrawerNavRight isAuthenticated={true} friends={friends} userId={null}/>
         </div>
       </main> 
     )
@@ -73,7 +97,7 @@ export default async function Home() {
             likes={item.likes} disLikes={item.disLikes}/>
           ))}
         </div>
-        <DrawerNavRight isAuthenticated={false}/>
+        <DrawerNavRight isAuthenticated={false} userId={user?.id}/>
       </div>
     </main>
   )

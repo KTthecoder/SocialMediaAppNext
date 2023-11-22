@@ -55,6 +55,16 @@ const page = async (props: Props) => {
     }
   }})
 
+  const postsCount = await prisma.posts.count({where: {usersId: user?.id}})
+  const friendsCount = await prisma.friends.count({ where: {
+    OR: [{
+      user1Id: user?.id,
+    }, {
+      user2Id: user?.id
+    }]
+  }})
+  const groupsCount = await prisma.groups.count({where: {UserInGroup: {some: {usersId: user?.id}}}})
+
   if(!user){
     return notFound()
   }
@@ -71,17 +81,17 @@ const page = async (props: Props) => {
             </div>
             <div className='flex flex-row justify-end items-center'>
               <div className='flex flex-col items-center justify-center'>
-                <p>2</p>
+                <p>{postsCount}</p>
                 <p className='text-gray-300'>Posts</p>
               </div>
-              <div className='flex flex-col items-center justify-center mx-4'>
-                <p>423</p>
+              <Link href='/account/friends' className='flex flex-col items-center justify-center mx-4'>
+                <p>{friendsCount}</p>
                 <p className='text-gray-300'>Friends</p>
-              </div>
-              <div className='flex flex-col items-center justify-center'>
-                <p>25</p>
+              </Link>
+              <Link href='/groups' className='flex flex-col items-center justify-center'>
+                <p>{groupsCount}</p>
                 <p className='text-gray-300'>Groups</p>
-              </div>
+              </Link>
             </div>
           </div>
           <p className='text-sm mt-2 sm:text-base text-gray-200'>{user?.description}</p>

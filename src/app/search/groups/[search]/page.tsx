@@ -8,6 +8,9 @@ import GroupHorizontal from '@/components/GroupHorizontal';
 import { MdOutlineArticle } from "react-icons/md";
 import FriendHorizontal from '@/components/FriendHorizontal';
 import Link from 'next/link';
+import prisma from '@/lib/db';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 type Props = {}
 
@@ -16,11 +19,18 @@ export const metadata: Metadata = {
   description: 'Search page of SocialMediaApp',
 }
 
-const page = (props: Props) => {
+const page = async (props: Props) => {
+    const session = await getServerSession(authOptions)
+    const user = await prisma.users.findFirst({where: {username: session?.user.username}, select: {
+        username: true,
+        profileImg: true,
+        profileImgAlt: true,
+    }})
+    
     return (
         <main className='w-full flex flex-row items-center justify-center'>
             <div className='w-10/12 flex flex-row justify-center mt-24 max-w-[1700px] lg:justify-between lg:mt-28'>
-            <DrawerNavLeft/>
+            <DrawerNavLeft user={{username: user?.username, profileImg: user?.profileImg?.toString(), profileImgAlt: user?.profileImgAlt?.toString()}}/>
             <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
                 <div className='flex flex-col mb-10'>
                     <h1 className='text-2xl tracking-wider pt-3 mb-3 flex items-center'><IoMdSearch size={25} className='mr-3'/> Search results</h1>

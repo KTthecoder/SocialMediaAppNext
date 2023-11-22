@@ -1,6 +1,5 @@
 'use client'
 import { LuUsers } from "react-icons/lu";
-import UserImage from '@/static/images/shortImg.jpeg'
 import { FaChevronDown } from "react-icons/fa";
 import DrawerFriend from "./DrawerFriend";
 import { useState } from "react";
@@ -8,15 +7,37 @@ import Link from "next/link";
 
 type Props = {
     isAuthenticated: boolean,
-    friends?: [{
-        username: string,
-        profileImg: string,
-        profileImgAlt: string,
-    }]
+    friends?: {user1: {
+        username: string;
+        profileImg: string | null;
+        profileImgAlt: string | null;
+    };
+    user2: {
+        username: string;
+        profileImg: string | null;
+        profileImgAlt: string | null;
+    }}[],
+    userId: string | null | undefined
 }
 
 const DrawerNavRight = (props: Props) => {
     const [showFriends, setShowFriends] = useState(true)
+
+    // const getFriends = () => {
+    //     var friends1 = []
+    //     var friends2 = []
+    //     if(props.friends && props.friends?.length > 0){
+    //         props.friends.map((item) => {
+    //             if(item.user1.username != props.userId){
+    //                 friends1.push(item)
+    //             }
+
+    //             if(item.user2.username != props.userId){
+    //                 friends1.push(item)
+    //             }
+    //         })
+    //     }
+    // }
 
     return (
         <>

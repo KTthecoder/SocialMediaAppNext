@@ -32,6 +32,7 @@ model Users {
   UserInGroup   UserInGroup[]
   Posts         Posts[]
   SavedPosts    SavedPosts[]
+  Groups        Groups[]
 }
 
 model Friends {
@@ -51,6 +52,10 @@ model Groups {
   status      GroupStatus   @default(PUBLIC)
   UserInGroup UserInGroup[]
   Posts       Posts[]
+  admin       Users         @relation(fields: [usersId], references: [id])
+  usersId     String
+  image       String        @default("")
+  imageAlt    String        @default("")
 }
 
 model UserInGroup {
