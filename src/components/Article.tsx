@@ -20,7 +20,7 @@ type Props = {
     commentsCount?: number,
     id: string,
     saved: string,
-    // comments: string[]
+    comments: {user: {username: string}, text: string}[]
 }
 
 const Article = (props: Props) => {
@@ -61,16 +61,15 @@ const Article = (props: Props) => {
                 </div>
                 <SavePostBtn saved={props.saved} id={props.id} username={props.username}/>
             </div>
-            <div>
-                <div className='flex mb-3 justify-between'>
-                    <p className='w-10/12 text-sm sm:text-base text-gray-300'><span className='font-medium tracking-wide text-white'>Username</span> Adipiscing enim eu turpis egestas pretium aenean. Integer eget aliquet nibh praesent tristique magna sit amet.</p>
-                    <FaRegHeart className='text-[17px]'/>
-                </div>
-                <div className='flex mb-3 justify-between'>
-                    <p className='w-10/12 text-sm sm:text-base text-gray-300'><span className='font-medium tracking-wide text-white'>Username</span> Adipiscing enim eu turpis egestas pretium aenean. Integer eget aliquet nibh praesent tristique magna sit amet.</p>
-                    <FaRegHeart className='text-[17px]'/>
-                </div>
-                <button className='text-blue-500'>Show more</button>
+            <div className="flex flex-col w-full">
+                {props.comments.length === 0 ? null
+                : props.comments.map((item) => (
+                    <div className='flex mb-3 justify-between'>
+                        <p className='w-10/12 text-sm sm:text-base text-gray-300'><span className='font-medium tracking-wide text-white'>{item.user.username}</span> {item.text}</p>
+                        <FaRegHeart className='text-[17px]'/>
+                    </div>
+                ))}
+                {props.comments.length === 0 ? null : props.comments.length >= 3 ? <Link href='/post/post-slug' className='text-blue-500'>Show more</Link> : null}
             </div>
         </div>
     )

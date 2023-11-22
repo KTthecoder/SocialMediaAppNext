@@ -32,7 +32,17 @@ export default async function Home() {
         profileImg: true,
       }
     },
-    SavedPosts: {select: {postsId: true}}
+    SavedPosts: {select: {postsId: true}},
+    PostComments: {
+      select: {
+        text: true,
+        user: {
+          select: {
+            username: true,
+          }
+        }
+      }
+    }
   }, orderBy: {createdAt: 'desc'}})
 
   if(session?.user){
@@ -42,7 +52,7 @@ export default async function Home() {
           <DrawerNavLeft user={{username: user?.username, profileImg: user?.profileImg?.toString(), profileImgAlt: user?.profileImgAlt?.toString()}}/>
           <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
             {posts.map((item, key) => (
-              <Article key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
+              <Article comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
               likes={item.likes} disLikes={item.disLikes}/>
             ))}
           </div>
@@ -58,7 +68,7 @@ export default async function Home() {
         <DrawerNavLeft user={null}/>
         <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
           {posts.map((item, key) => (
-            <Article key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
+            <Article comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
             likes={item.likes} disLikes={item.disLikes}/>
           ))}
         </div>

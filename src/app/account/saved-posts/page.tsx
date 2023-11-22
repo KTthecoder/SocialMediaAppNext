@@ -35,7 +35,17 @@ const page = async (props: Props) => {
         profileImg: true,
       }
     },
-    SavedPosts: {select: {postsId: true}}
+    SavedPosts: {select: {postsId: true}},
+    PostComments: {
+      select: {
+        text: true,
+        user: {
+          select: {
+            username: true,
+          }
+        }
+      }
+    }
   }})
 
   if(!session?.user){
@@ -49,7 +59,7 @@ const page = async (props: Props) => {
         <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
           <h1 className='text-2xl tracking-wider pt-3 mb-10 border-b border-b-[#111] pb-5 flex items-center'><MdSaveAlt size={25} className='mr-3'/> Saved Posts</h1>
           {posts.map((item, key) => (
-            <Article key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
+            <Article comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
             likes={item.likes} disLikes={item.disLikes}/>
           ))}
         </div>
