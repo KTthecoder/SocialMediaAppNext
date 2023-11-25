@@ -41,7 +41,7 @@ export default async function Home() {
         profileImgAlt: true,
       }
     }
-  }})
+  }, take: 6})
   
   const posts = await prisma.posts.findMany({select: {
     description: true,
@@ -86,7 +86,7 @@ export default async function Home() {
               likes={item.likes} disLikes={item.disLikes}/>
             ))}
           </div>
-          <DrawerNavRight isAuthenticated={true} friends={friends} userId={null}/>
+          <DrawerNavRight isAuthenticated={true} friends={friends} userId={null} currentUsername={session.user.username}/>
         </div>
       </main> 
     )

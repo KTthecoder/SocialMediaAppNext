@@ -83,7 +83,7 @@ const page = async (props: Props) => {
         <div className='flex flex-col w-full lg:w-8/12 2xl:w-9/12'>
           <h1 className='text-2xl tracking-wider pt-3 pb-5 mb-10 border-b border-b-[#111] flex items-center'><MdOutlineMarkEmailUnread  size={25} className='mr-3'/> Friend Invitations</h1>
           <div className='w-full grid grid-cols-2 gap-5 sm:grid-cols-3 lg-ml-10 xl:grid-cols-4 xl:gap-7 2xl:grid-cols-5'>
-            {friendsPending.length === 0 ? <h1>You have 0 friends</h1> : friendsPending.map((item, key) => (
+            {friendsPending.length === 0 ? <h1 className='-mt-5'>You have 0 invitations</h1> : friendsPending.map((item, key) => (
               item.user1.username === session?.user.username ? 
                 <FriendBlock inviteId={item.id} type='Pending' username={item.user2.username} profileImg={item.user2.profileImg} profileImgAlt={item.user2.profileImgAlt} key={key}/>
               : item.user2.username === session?.user.username ? 
@@ -93,7 +93,7 @@ const page = async (props: Props) => {
           </div>
           <h1 className='text-2xl tracking-wider pt-10 pb-5 mb-10 border-b border-b-[#111] flex items-center'><LuUsers size={25} className='mr-3'/> Your Friends</h1>
           <div className='w-full grid grid-cols-2 gap-5 sm:grid-cols-3 lg-ml-10 xl:grid-cols-4 xl:gap-7 2xl:grid-cols-5'>
-            {friends.length === 0 ? <h1>You have 0 friends</h1> : friends.map((item, key) => (
+            {friends.length === 0 ? <h1 className='-mt-5'>You have 0 friends</h1> : friends.map((item, key) => (
               item.user1.username === session?.user.username ? 
                 <FriendBlock inviteId={item.id} type='Friend' username={item.user2.username} profileImg={item.user2.profileImg} profileImgAlt={item.user2.profileImgAlt} key={key}/>
               : item.user2.username === session?.user.username ? 

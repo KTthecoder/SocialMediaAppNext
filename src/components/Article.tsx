@@ -38,8 +38,8 @@ const Article = (props: Props) => {
                 </div>
             </div>
             <div className='flex items-start justify-start flex-col w-full'>
-                <p>{props.description}</p>
-                <button className='text-blue-500 mt-1 mb-4'>Load more</button>
+                <p className="mt-1 mb-4">{props.description}</p>
+                {props.description != undefined && props.description?.length >= 200 ? <button className='text-blue-500 -mt-3 mb-4'>Load more</button> : null}
             </div>
             <Link href={`/post/${props.id}`}>
                 <img src={PostImage.src} className='aspect-[6/5]' alt='Main'/>

@@ -63,6 +63,15 @@ const page = async (props: Props) => {
         }}
     }, take: 3})
 
+    const people = await prisma.users.findMany({where: {
+        username: {contains: props.params.search}
+      }, select: {
+        username: true,
+        description: true,
+        profileImg: true,
+        profileImgAlt: true
+    }, take: 3})
+
     const groupsCount = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
         _count: {select: {UserInGroup: true}}
     }})
@@ -89,10 +98,13 @@ const page = async (props: Props) => {
                 <div className='flex flex-col mb-7 border-b border-b-[#111] pb-5'>
                     <h1 className='text-2xl tracking-wider pt-3 flex items-center'><LuUsers size={25} className='mr-3'/>People</h1>
                 </div>
-                <FriendHorizontal/>
-                <FriendHorizontal/>
-                <FriendHorizontal/>
-                <Link className='bg-[#0a0a0a] rounded-md py-2 text-center mb-5 mt-2' href='/search/people/people-text'>Load more</Link>
+                {people.length === 0 ? <h1 className='-mt-5'>Can't find users</h1> : 
+                <>
+                {people.map((item, key) => (
+                    <FriendHorizontal username={item.username} description={item.description} profileImg={item.profileImg} profileImgAlt={item.profileImgAlt} key={key}/>
+                ))}
+                <Link className='bg-[#0a0a0a] rounded-md py-2 text-center mb-5 mt-2' href={`/search/people/${props.params.search}`}>Load more</Link>
+                </>}
                 <div className='flex flex-col mb-10 border-b border-b-[#111] pb-5 mt-2'>
                     <h1 className='text-2xl tracking-wider pt-3 flex items-center'><MdOutlineArticle size={25} className='mr-3'/> Posts</h1>
                 </div>
@@ -104,7 +116,6 @@ const page = async (props: Props) => {
                 ))}
                 <Link className='bg-[#0a0a0a] rounded-md py-2 text-center mb-5 mt-2' href={`/search/posts/${props.params.search}`}>Load more</Link>
                 </>}
-                
             </div>
             <div className="hidden xl:flex flex-col lg:w-3/12 lg:max-w-[270px]"></div>
             </div>

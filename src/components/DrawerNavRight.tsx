@@ -17,27 +17,12 @@ type Props = {
         profileImg: string | null;
         profileImgAlt: string | null;
     }}[],
-    userId: string | null | undefined
+    userId: string | null | undefined,
+    currentUsername?: string,
 }
 
 const DrawerNavRight = (props: Props) => {
     const [showFriends, setShowFriends] = useState(true)
-
-    // const getFriends = () => {
-    //     var friends1 = []
-    //     var friends2 = []
-    //     if(props.friends && props.friends?.length > 0){
-    //         props.friends.map((item) => {
-    //             if(item.user1.username != props.userId){
-    //                 friends1.push(item)
-    //             }
-
-    //             if(item.user2.username != props.userId){
-    //                 friends1.push(item)
-    //             }
-    //         })
-    //     }
-    // }
 
     return (
         <>
@@ -63,14 +48,17 @@ const DrawerNavRight = (props: Props) => {
                     </button>
                 </div>
                 <div className={`${showFriends === false ? 'hidden' : 'flex'} flex-col`}>
-                    <DrawerFriend/>
-                    <DrawerFriend/>
-                    <DrawerFriend/>
-                    <DrawerFriend/>
+                    {props.friends?.length === 0 ? null : props.friends?.map((item, key) => (
+                        item.user1.username === props.currentUsername ? 
+                            <DrawerFriend key={key} profileImg={item.user2.profileImg} username={item.user2.username} profileImgAlt={item.user1.profileImgAlt}/>
+                        : item.user2.username === props.currentUsername ? 
+                            <DrawerFriend key={key} profileImg={item.user2.profileImg} username={item.user2.username} profileImgAlt={item.user1.profileImgAlt}/>
+                        : null
+                    ))}
                 </div>
                 {showFriends === false 
                 ? null
-                : <button className="w-full bg-blue-500 text-center py-1 rounded-md mt-5">Show More</button>}
+                : <Link href='/account/friends' className="w-full bg-blue-500 text-center py-1 rounded-md mt-5">Show More</Link>}
             </div>}
         </>
     )
