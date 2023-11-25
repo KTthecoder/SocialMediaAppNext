@@ -65,7 +65,8 @@ export default async function Home() {
           select: {
             username: true,
           }
-        }
+        },
+        _count: true
       }
     }
   }, orderBy: {createdAt: 'desc'}})

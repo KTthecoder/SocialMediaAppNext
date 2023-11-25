@@ -30,8 +30,8 @@ const EditAccountForm = (props: Props) => {
 
         if(res.ok){
             alert('User edited succesfully')
-            router.refresh()
             router.push(`/account/${username}`)
+            router.refresh()
         } else {
             alert('error occured')
         }

@@ -14,15 +14,15 @@ const CreatePostForm = (props: Props) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const res = await fetch('http://localhost:3000/api/post', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            description: formData.get('description'), 
-            username: props.username,
-            images: ''
-        })
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        description: formData.get('description'), 
+        username: props.username,
+        images: ''
+      })
     })
   
     if(res.status === 201){

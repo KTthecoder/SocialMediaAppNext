@@ -8,6 +8,9 @@ import prisma from '@/lib/db';
 import { notFound } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import LogoutBtn from '@/components/LogoutBtn';
+import AddToFriendBtn from '@/components/AddToFriendBtn';
+import DeleteFriendBtn from '@/components/DeleteFriendBtn';
 
 export const metadata: Metadata = {
   title: 'Account | SocialMediaApp',
@@ -26,6 +29,12 @@ const page = async (props: Props) => {
     profileImg: true,
     profileImgAlt: true,
     id: true
+  }})
+
+  const currentUser = await prisma.users.findUnique({where: {username: session?.user.username}, select: {
+    username: true,
+    profileImg: true,
+    profileImgAlt: true,
   }})
   
   const posts = await prisma.posts.findMany({where: {usersId: user?.id}, select: {
@@ -69,6 +78,7 @@ const page = async (props: Props) => {
   }})
   const groupsCount = await prisma.groups.count({where: {UserInGroup: {some: {usersId: user?.id}}}})
 
+
   if(!user){
     return notFound()
   }
@@ -76,7 +86,7 @@ const page = async (props: Props) => {
   return (
     <main className='w-full flex flex-row items-center justify-center'>
       <div className='w-10/12 flex flex-row justify-center mt-24 max-w-[1700px] lg:justify-between lg:mt-28'>
-        <DrawerNavLeft groups={groups} user={{username: user?.username, profileImg: user?.profileImg?.toString(), profileImgAlt: user?.profileImgAlt?.toString()}}/>
+        <DrawerNavLeft groups={groups} user={{username: currentUser?.username, profileImg: currentUser?.profileImg?.toString(), profileImgAlt: currentUser?.profileImgAlt?.toString()}}/>
         <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
           <div className='flex flex-row items-start justify-between'>
             <div className='flex flex-col'>
@@ -101,13 +111,15 @@ const page = async (props: Props) => {
           <p className='text-sm mt-2 sm:text-base text-gray-200'>{user?.description}</p>
           <div className='mt-4'>
             {session?.user.username === user.username ?
-            <>
-              <Link href='/account/edit-account' className='bg-[#111] rounded-md py-1 px-4 mr-4'>Edit profile</Link>
-              <button className='bg-[#111] rounded-md py-1 px-4'>Share profile</button>
-            </>
-            : <button className='bg-blue-500 rounded-md py-1 px-4 mr-4'>Add to friends</button>}
-          {/* <button className='bg-blue-500 rounded-md py-1 px-4 mr-4'>Add to friends</button>
-          <button className='bg-red-500 rounded-md py-1 px-4 mr-4'>Remove from friends</button> */}
+            <div className='flex flex-row'>
+              <Link href='/account/edit-account' className='bg-[#111] rounded-md px-4 mr-4 py-1'>Edit profile</Link>
+              <LogoutBtn/>
+            </div>
+            : session?.user.username != user.username && friendsCount === 0 ?
+              <AddToFriendBtn user1Id={session?.user.id} user2Id={user.id}/>
+            : session?.user.username != user.username && friendsCount === 1 ?
+              <DeleteFriendBtn user1Id={session?.user.id} user2Id={user.id}/>
+            : null}
           </div>
           <div className='flex flex-col mb-10 border-b border-b-[#111] pb-5 mt-8'>
             <h1 className='text-2xl tracking-wider pt-3 flex items-center'><MdOutlineArticle size={25} className='mr-3'/> 

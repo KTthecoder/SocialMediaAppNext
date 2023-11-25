@@ -42,6 +42,7 @@ model Friends {
   user2     Users    @relation("user2", fields: [user2Id], references: [id])
   user2Id   String
   createdAt DateTime @default(now())
+  isPending Boolean  @default(true)
 }
 
 model Groups {

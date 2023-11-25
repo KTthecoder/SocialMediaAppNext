@@ -15,17 +15,17 @@ const CreateGroupForm = (props: Props) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const res = await fetch('http://localhost:3000/api/group', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            images: '', 
-            name: formData.get('name'),
-            visibility: visibility === false ? 'PRIVATE' : 'PUBLIC',
-            description: formData.get('description'),
-            username: props.username
-        })
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        images: '', 
+        name: formData.get('name'),
+        visibility: visibility === false ? 'PRIVATE' : 'PUBLIC',
+        description: formData.get('description'),
+        username: props.username
+      })
     })
   
     if(res.status === 201){
