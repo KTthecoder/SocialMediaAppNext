@@ -1,6 +1,5 @@
 import DrawerNavLeft from '@/components/DrawerNavLeft'
 import type { Metadata } from 'next'
-
 import { RiPlayListAddFill } from "react-icons/ri";
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -8,14 +7,12 @@ import prisma from '@/lib/db';
 import { notFound } from 'next/navigation';
 import CreatePostForm from '@/components/forms/CreatePostForm';
 
-type Props = {}
-
 export const metadata: Metadata = {
   title: 'Create post | SocialMediaApp',
   description: 'Create post page of SocialMediaApp',
 }
 
-const page = async (props: Props) => {
+const page = async () => {
   const session = await getServerSession(authOptions)
   const user = await prisma.users.findFirst({where: {username: session?.user.username}, select: {
     username: true,
@@ -23,7 +20,6 @@ const page = async (props: Props) => {
     profileImgAlt: true,
     id: true,
   }})
-
   const groups = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
     _count: {select: {UserInGroup: true}}
   }})

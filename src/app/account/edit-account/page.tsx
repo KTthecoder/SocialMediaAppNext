@@ -1,19 +1,16 @@
-import Article from '@/components/Article'
 import DrawerNavLeft from '@/components/DrawerNavLeft'
 import type { Metadata } from 'next'
 import ProfileImg from '@/static/images/shortImg.jpeg'
 import { RiUserSettingsLine } from "react-icons/ri";
-import Link from 'next/link';
 import prisma from '@/lib/db';
-import { getServerSideProps } from 'next/dist/build/templates/pages';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { notFound } from 'next/navigation';
 import EditAccountForm from '@/components/forms/EditAccountForm';
 
 export const metadata: Metadata = {
-  title: 'Account | SocialMediaApp',
-  description: 'Account page of SocialMediaApp',
+  title: 'Edit Account | SocialMediaApp',
+  description: 'Edit Account page of SocialMediaApp',
 }
 
 type Props = {}

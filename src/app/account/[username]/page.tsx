@@ -30,13 +30,11 @@ const page = async (props: Props) => {
     profileImgAlt: true,
     id: true
   }})
-
   const currentUser = await prisma.users.findUnique({where: {username: session?.user.username}, select: {
     username: true,
     profileImg: true,
     profileImgAlt: true,
   }})
-  
   const posts = await prisma.posts.findMany({where: {usersId: user?.id}, select: {
     description: true,
     createdAt: true,
@@ -63,11 +61,9 @@ const page = async (props: Props) => {
       }
     }
   }})
-
   const groups = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
     _count: {select: {UserInGroup: true}}
   }})
-
   const postsCount = await prisma.posts.count({where: {usersId: user?.id}})
   const friendsCount = await prisma.friends.count({ where: {
     OR: [{
@@ -77,7 +73,6 @@ const page = async (props: Props) => {
     }]
   }})
   const groupsCount = await prisma.groups.count({where: {UserInGroup: {some: {usersId: user?.id}}}})
-
 
   if(!user){
     return notFound()
@@ -127,7 +122,7 @@ const page = async (props: Props) => {
           </div>
           {posts.map((item, key) => (
             <Article userId={item.user.id} comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
-            likes={item.likes} disLikes={item.disLikes}/>
+            likes={item.likes} disLikes={item.disLikes} current={true} currentUser={session?.user.username}/>
           ))}
         </div>
         <div className="hidden xl:flex flex-col lg:w-3/12 lg:max-w-[270px]"></div>

@@ -12,9 +12,7 @@ export const metadata: Metadata = {
   description: 'Saved Posts page of SocialMediaApp',
 }
 
-type Props = {}
-
-const page = async (props: Props) => {
+const page = async () => {
   const session = await getServerSession(authOptions)
   const user = await prisma.users.findFirst({where: {username: session?.user.username}, select: {
     username: true,
@@ -22,7 +20,6 @@ const page = async (props: Props) => {
     profileImgAlt: true,
     id: true,
   }})
-
   const posts = await prisma.posts.findMany({where: {usersId: session?.user.id}, select: {
     description: true,
     createdAt: true,
@@ -49,7 +46,6 @@ const page = async (props: Props) => {
       }
     }
   }})
-
   const groups = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
     _count: {select: {UserInGroup: true}}
   }})

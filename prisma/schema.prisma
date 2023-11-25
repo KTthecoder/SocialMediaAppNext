@@ -87,7 +87,7 @@ model Posts {
 
 model SavedPosts {
   id        Int      @id @default(autoincrement())
-  post      Posts    @relation(fields: [postsId], references: [id])
+  post      Posts    @relation(fields: [postsId], references: [id], onDelete: Cascade)
   postsId   String
   createdAt DateTime @default(now())
   user      Users    @relation(fields: [usersId], references: [id])
@@ -98,7 +98,7 @@ model LikedPosts {
   id      Int    @id @default(autoincrement())
   user    Users  @relation(fields: [usersId], references: [id])
   usersId String
-  post    Posts  @relation(fields: [postId], references: [id])
+  post    Posts  @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId  String
 }
 
@@ -106,7 +106,7 @@ model DisLikedPosts {
   id      Int    @id @default(autoincrement())
   user    Users  @relation(fields: [usersId], references: [id])
   usersId String
-  post    Posts  @relation(fields: [postsId], references: [id])
+  post    Posts  @relation(fields: [postsId], references: [id], onDelete: Cascade)
   postsId String
 }
 

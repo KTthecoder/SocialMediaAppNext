@@ -28,7 +28,6 @@ export async function POST(req:Request){
     }
 }
 
-
 export async function DELETE(req:Request){
     try{
         const body = await req.json()

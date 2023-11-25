@@ -2,11 +2,13 @@
 import { IoCalendarClearOutline } from "react-icons/io5";
 import ProfileImg from '../static/images/shortImg.jpeg'
 import { FaRegHeart } from "react-icons/fa";
-import { BiDislike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import PostImage from '../static/images/postImage.png'
 import Link from 'next/link';
 import SavePostBtn from "./SavePostBtn";
+import LikePostBtn from "./LikePostBtn";
+import DislikePostBtn from "./DislikePostBtn";
+import EditBtn from "./EditBtn";
 
 type Props = {
     userId: string,
@@ -21,7 +23,9 @@ type Props = {
     commentsCount?: number,
     id: string,
     saved: string,
-    comments: {user: {username: string}, text: string}[]
+    comments: {user: {username: string}, text: string}[],
+    current?: boolean,
+    currentUser?: string,
 }
 
 const Article = (props: Props) => {
@@ -44,21 +48,15 @@ const Article = (props: Props) => {
             <Link href={`/post/${props.id}`}>
                 <img src={PostImage.src} className='aspect-[6/5]' alt='Main'/>
             </Link>
-            
             <div className='flex items-start justify-between w-full mt-4 border-b border-b-[#222] pb-4 mb-4'>
-                <div className='flex'>
-                    <button className='mr-4 flex flex-col items-center sm:flex-row'>
-                        <FaRegHeart className='text-[21px] sm:text-[23px]'/>
-                        <p className='sm:pl-2 text-sm sm:text-base'>{props.likes}</p>
-                    </button>
-                    <button className='mr-4 flex flex-col items-center sm:flex-row'>
-                        <BiDislike className='text-[21px] sm:text-[23px]'/>
-                        <p className='sm:pl-2 text-sm sm:text-base'>{props.disLikes}</p>
-                    </button>
+                <div className='flex flex-row'>
+                    <LikePostBtn likes={props.likes} postId={props.id} userId={props.userId}/>
+                    <DislikePostBtn disLikes={props.disLikes} postId={props.id} userId={props.userId}/>
                     <button className='flex flex-col items-center sm:flex-row'>
                         <FaRegComment className='text-[21px] sm:text-[23px]'/>
                         <p className='sm:pl-2 text-sm sm:text-base'>{props.commentsCount}</p>
                     </button>
+                    {props.currentUser && props.currentUser === props.username ? <EditBtn currentUser={props.currentUser} postId={props.id}/> : null}
                 </div>
                 <SavePostBtn saved={props.saved} id={props.id} username={props.username}/>
             </div>

@@ -1,7 +1,5 @@
 import DrawerNavLeft from '@/components/DrawerNavLeft'
 import type { Metadata } from 'next'
-import { GrGroup } from "react-icons/gr";
-import GroupHorizontal from '@/components/GroupHorizontal';
 import Link from 'next/link';
 import prisma from '@/lib/db';
 import { getServerSession } from 'next-auth';
@@ -55,7 +53,6 @@ const page = async (props: Props) => {
       }
     }
   }, orderBy: {createdAt: 'desc'}})
-
   const groups = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
     _count: {select: {UserInGroup: true}}
   }})

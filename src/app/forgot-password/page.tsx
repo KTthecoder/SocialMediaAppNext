@@ -1,20 +1,16 @@
 
 import React from 'react'
 import type { Metadata } from 'next'
-import { FaLock, FaUnlock  } from "react-icons/fa";
 import Link from 'next/link';
-import RegisterSvg from '@/static/svgs/Register';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import ForgotPasswordSvg from '@/static/svgs/ForgotPassword';
-
-type Props = {}
 
 export const metadata: Metadata = {
     title: 'Forgot password | SocialMediaApp',
     description: 'Forgot password form for SocialMediaApp',
 }
 
-const page = (props: Props) => {
+const page = () => {
   return (
     <div className='w-full flex flex-col items-center justify-center'>
         <div className='flex flex-col items-start w-10/12 lg:absolute'>

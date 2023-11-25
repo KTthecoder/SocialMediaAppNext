@@ -1,22 +1,17 @@
-import Article from '@/components/Article'
 import DrawerNavLeft from '@/components/DrawerNavLeft'
 import type { Metadata } from 'next'
-import ProfileImg from '@/static/images/shortImg.jpeg'
 import { RiUserSettingsLine } from "react-icons/ri";
-import Link from 'next/link';
-import { FaLock, FaUnlock  } from "react-icons/fa";
+import { FaLock  } from "react-icons/fa";
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/db';
 
 export const metadata: Metadata = {
-  title: 'Account | SocialMediaApp',
-  description: 'Account page of SocialMediaApp',
+  title: 'Change password | SocialMediaApp',
+  description: 'Change password page of SocialMediaApp',
 }
 
-type Props = {}
-
-const page = async (props: Props) => {
+const page = async () => {
   const session = await getServerSession(authOptions)
   const user = await prisma.users.findFirst({where: {username: session?.user?.username}})
   const groups = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {

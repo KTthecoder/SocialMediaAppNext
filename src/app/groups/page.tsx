@@ -6,16 +6,13 @@ import Link from 'next/link';
 import prisma from '@/lib/db';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { IoMdAdd } from "react-icons/io";
-
-type Props = {}
 
 export const metadata: Metadata = {
   title: 'Search | SocialMediaApp',
   description: 'Search page of SocialMediaApp',
 }
 
-const page = async (props: Props) => {
+const page = async () => {
   const session = await getServerSession(authOptions)
   const user = await prisma.users.findFirst({where: {username: session?.user.username}, select: {
     username: true,
@@ -28,7 +25,6 @@ const page = async (props: Props) => {
       UserInGroup: true
     }}
   }})
-  
   const groupsCounter = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
     _count: {select: {UserInGroup: true}}
   }})

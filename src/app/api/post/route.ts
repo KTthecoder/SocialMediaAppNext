@@ -22,3 +22,30 @@ export async function POST(req:Request){
         return NextResponse.json({message: 'Something went wrong'}, {status: 500})
     }
 }
+
+export async function DELETE(req:Request){
+    // try{
+        const body = await req.json()
+        const { username, postId } = body
+    
+        const existingUserByUsername = await prisma.users.findUnique({where: {username: username}})
+        if(!existingUserByUsername){
+            return NextResponse.json({message: 'User with that id does not exists'}, {status: 409})
+        }
+
+        const existingPostById = await prisma.posts.findUnique({where: {id: postId}})
+        if(!existingPostById){
+            return NextResponse.json({message: 'Post with that id does not exists'}, {status: 409})
+        }
+
+        const deletePost = await prisma.posts.delete({where: {
+            id: postId,
+            usersId: existingUserByUsername.id
+        }})
+
+        return NextResponse.json({message: 'Post deleted succesfully'}, {status: 200})
+    // }
+    // catch (error){
+    //     return NextResponse.json({message: 'Something went wrong'}, {status: 500})
+    // }
+}

@@ -1,20 +1,16 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import { FaLock, FaUnlock  } from "react-icons/fa";
 import Link from 'next/link';
-import RegisterSvg from '@/static/svgs/Register';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import LoginSvg from '@/static/svgs/Login';
 import RegisterForm from '@/components/forms/RegisterForm';
 
-type Props = {}
-
 export const metadata: Metadata = {
-    title: 'Login | SocialMediaApp',
-    description: 'Login form for SocialMediaApp',
+    title: 'Create account | SocialMediaApp',
+    description: 'Create account page for SocialMediaApp',
 }
 
-const page = (props: Props) => {
+const page = () => {
   return (
     <div className='w-full flex flex-col items-center justify-center'>
         <div className='flex flex-col items-start w-10/12 lg:absolute'>

@@ -1,19 +1,16 @@
 import DrawerNavLeft from '@/components/DrawerNavLeft'
 import type { Metadata } from 'next'
-
 import { RiPlayListAddFill } from "react-icons/ri";
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/db';
 import { notFound } from 'next/navigation';
-import CreatePostForm from '@/components/forms/CreatePostForm';
-import CreateGroupForm from '@/components/forms/CreateGroupForm';
 import CreateGroupPostForm from '@/components/forms/CreateGroupPostForm';
 
 type Props = {
-    params: {
-        slug: string
-    }
+  params: {
+    slug: string
+  }
 }
 
 export const metadata: Metadata = {
@@ -33,7 +30,6 @@ const page = async (props: Props) => {
     name: true,
     id: true
   }})
-
   const groups = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
     _count: {select: {UserInGroup: true}}
   }})

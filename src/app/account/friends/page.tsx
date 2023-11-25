@@ -8,14 +8,12 @@ import prisma from '@/lib/db';
 import { authOptions } from '@/lib/auth';
 import { notFound } from 'next/navigation';
 
-type Props = {}
-
 export const metadata: Metadata = {
   title: 'Friends | SocialMediaApp',
   description: 'Friends page of SocialMediaApp',
 }
 
-const page = async (props: Props) => {
+const page = async () => {
   const session = await getServerSession(authOptions)
   const user = await prisma.users.findFirst({where: {username: session?.user?.username}})
   const friendsPending = await prisma.friends.findMany({ where: {
@@ -67,7 +65,6 @@ const page = async (props: Props) => {
       }
     },
   }})
-
   const groups = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
     _count: {select: {UserInGroup: true}}
   }})
