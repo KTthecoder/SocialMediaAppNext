@@ -7,6 +7,7 @@ type Props = {
     disLikes: number | undefined,
     userId: string,
     postId: string,
+    liked: boolean,
 }
 
 const DislikePostBtn = (props: Props) => {
@@ -33,10 +34,17 @@ const DislikePostBtn = (props: Props) => {
     }
 
     return (
-        <button className='mr-4 flex flex-col items-center sm:flex-row' onClick={() => handleClick()}>
-            <BiDislike className='text-[21px] sm:text-[23px]'/>
-            <p className='sm:pl-2 text-sm sm:text-base'>{props.disLikes}</p>
-        </button>
+        <>
+            {props.liked === true ? 
+                <button className='mr-4 flex flex-col items-center sm:flex-row' disabled>
+                <BiDislike className='text-[21px] sm:text-[23px] text-blue-500'/>
+                <p className='sm:pl-2 text-sm sm:text-base text-blue-500'>{props.disLikes}</p>
+            </button> :
+            <button className='mr-4 flex flex-col items-center sm:flex-row' onClick={() => handleClick()}>
+                <BiDislike className='text-[21px] sm:text-[23px]'/>
+                <p className='sm:pl-2 text-sm sm:text-base'>{props.disLikes}</p>
+            </button>}
+        </>
     )
 }
 

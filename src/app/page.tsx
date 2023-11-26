@@ -68,6 +68,10 @@ export default async function Home() {
         },
         _count: true
       }
+    },
+    LikedPosts: {
+      where: {usersId: session?.user.id},
+      select: {usersId: true, postId: true}
     }
   }, orderBy: {createdAt: 'desc'}})
 
@@ -82,8 +86,15 @@ export default async function Home() {
           <DrawerNavLeft groups={groups} user={{username: user?.username, profileImg: user?.profileImg?.toString(), profileImgAlt: user?.profileImgAlt?.toString()}}/>
           <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
             {posts.map((item, key) => (
-              <Article userId={item.user.id} comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
-              likes={item.likes} disLikes={item.disLikes}/>
+              <Article userId={item.user.id} currentUserId={session?.user.id} comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
+              likes={item.likes} disLikes={item.disLikes} number={key} liked={item.LikedPosts.map((item1) => {
+                if(item1.postId === item.id && item1.usersId === session.user.id){
+                  return true
+                }
+                else{
+                  return false
+                }
+              })}/>
             ))}
           </div>
           <DrawerNavRight isAuthenticated={true} friends={friends} userId={null} currentUsername={session.user.username}/>
@@ -98,7 +109,7 @@ export default async function Home() {
         <DrawerNavLeft user={null} groups={null}/>
         <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
           {posts.map((item, key) => (
-            <Article userId={item.user.id} comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
+            <Article number={key} userId={item.user.id} comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
             likes={item.likes} disLikes={item.disLikes}/>
           ))}
         </div>

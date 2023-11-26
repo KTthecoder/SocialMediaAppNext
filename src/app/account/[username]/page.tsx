@@ -23,14 +23,14 @@ type Props = {
 
 const page = async (props: Props) => {
   const session = await getServerSession(authOptions)
-  const user = await prisma.users.findUnique({where: {username: props.params.username}, select: {
+  const user = await prisma.users.findFirst({where: {username: props.params.username}, select: {
     username: true,
     description: true,
     profileImg: true,
     profileImgAlt: true,
     id: true
   }})
-  const currentUser = await prisma.users.findUnique({where: {username: session?.user.username}, select: {
+  const currentUser = await prisma.users.findFirst({where: {username: session?.user.username}, select: {
     username: true,
     profileImg: true,
     profileImgAlt: true,
@@ -59,6 +59,10 @@ const page = async (props: Props) => {
           }
         }
       }
+    },
+    LikedPosts: {
+      where: {usersId: session?.user.id},
+      select: {usersId: true, postId: true}
     }
   }})
   const groups = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
@@ -121,8 +125,15 @@ const page = async (props: Props) => {
             {session?.user.username === user.username ? " Your Posts" : "User's Posts"}</h1>
           </div>
           {posts.map((item, key) => (
-            <Article userId={item.user.id} comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
-            likes={item.likes} disLikes={item.disLikes} current={true} currentUser={session?.user.username}/>
+            <Article currentUserId={session?.user.id} userId={item.user.id} comments={item.PostComments} key={key} saved={item.SavedPosts[key] ? item.SavedPosts[key].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
+            likes={item.likes} disLikes={item.disLikes} current={true} currentUser={session?.user.username} number={key} liked={session && item.LikedPosts.map((item1) => {
+              if(item1.postId === item.id && item1.usersId === session.user.id){
+                return true
+              }
+              else{
+                return false
+              }
+            })}/>
           ))}
         </div>
         <div className="hidden xl:flex flex-col lg:w-3/12 lg:max-w-[270px]"></div>

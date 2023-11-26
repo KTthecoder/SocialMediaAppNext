@@ -60,6 +60,10 @@ const page = async (props: Props) => {
                     }
                 }
             }
+        },
+        LikedPosts: {
+          where: {usersId: session?.user.id},
+          select: {usersId: true, postId: true}
         }
     }, orderBy: {createdAt: 'desc'}})
 
@@ -76,8 +80,15 @@ const page = async (props: Props) => {
                     <h1 className='text-2xl tracking-wider pt-3 flex items-center'><MdOutlineArticle size={25} className='mr-3'/> Posts</h1>
                 </div>
                 {posts.map((item, key) => (
-                    <Article userId={item.user.id} comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
-                    likes={item.likes} disLikes={item.disLikes}/>
+                    <Article currentUserId={session?.user.id} userId={item.user.id} comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
+                    likes={item.likes} disLikes={item.disLikes} number={key} liked={session && item.LikedPosts.map((item1) => {
+                        if(item1.postId === item.id && item1.usersId === session.user.id){
+                          return true
+                        }
+                        else{
+                          return false
+                        }
+                    })}/>
                 ))}
                 <Link className='bg-[#0a0a0a] rounded-md py-2 text-center mb-5 mt-2' href='/'>Load more</Link>
             </div>

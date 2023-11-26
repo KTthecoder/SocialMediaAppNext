@@ -20,28 +20,36 @@ const page = async () => {
     profileImgAlt: true,
     id: true,
   }})
-  const posts = await prisma.posts.findMany({where: {usersId: session?.user.id}, select: {
-    description: true,
-    createdAt: true,
-    likes: true,
-    disLikes: true,
-    id: true,
-    user: {
+  const posts = await prisma.savedPosts.findMany({where: {usersId: session?.user.id}, select: {
+    post: {
       select: {
-        username: true,
-        profileImgAlt: true,
-        profileImg: true,
+        description: true,
+        createdAt: true,
+        likes: true,
+        disLikes: true,
         id: true,
-      }
-    },
-    SavedPosts: {select: {postsId: true}},
-    PostComments: {
-      select: {
-        text: true,
         user: {
           select: {
             username: true,
+            profileImgAlt: true,
+            profileImg: true,
+            id: true,
           }
+        },
+        SavedPosts: {select: {postsId: true}},
+        PostComments: {
+          select: {
+            text: true,
+            user: {
+              select: {
+                username: true,
+              }
+            }
+          }
+        },
+        LikedPosts: {
+          where: {usersId: session?.user.id},
+          select: {usersId: true, postId: true}
         }
       }
     }
@@ -61,8 +69,15 @@ const page = async () => {
         <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
           <h1 className='text-2xl tracking-wider pt-3 mb-10 border-b border-b-[#111] pb-5 flex items-center'><MdSaveAlt size={25} className='mr-3'/> Saved Posts</h1>
           {posts.length === 0 ? <h1 className='-mt-5'>No saved posts found</h1> :posts.map((item, key) => (
-            <Article userId={item.user.id} comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
-            likes={item.likes} disLikes={item.disLikes}/>
+            <Article currentUserId={session?.user.id} userId={item.post.user.id} comments={item.post.PostComments} key={key} saved={item.post.SavedPosts[0] ? item.post.SavedPosts[0].postsId : ''} id={item.post.id} createdAt={item.post.createdAt.toLocaleDateString().toString()} username={item.post.user.username} description={item.post.description?.toString()} 
+            likes={item.post.likes} disLikes={item.post.disLikes} number={key} liked={session && item.post.LikedPosts.map((item1) => {
+              if(item1.postId === item.post.id && item1.usersId === session.user.id){
+                return true
+              }
+              else{
+                return false
+              }
+            })}/>
           ))}
         </div>
         <div className="hidden xl:flex flex-col lg:w-3/12 lg:max-w-[270px]"></div>

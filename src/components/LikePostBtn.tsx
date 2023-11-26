@@ -6,11 +6,13 @@ import { FaRegHeart } from "react-icons/fa";
 type Props = {
     likes: number | undefined,
     postId: string,
-    userId: string,
+    userId: string | undefined,
+    liked: boolean
 }
 
 const LikePostBtn = (props: Props) => {
     const route = useRouter()
+    console.log(props.liked)
 
     const handleClick = async () => {
         const res = await fetch('http://localhost:3000/api/like-post', {
@@ -33,10 +35,18 @@ const LikePostBtn = (props: Props) => {
     }
 
     return (
-        <button className='mr-4 flex flex-col items-center sm:flex-row' onClick={() => handleClick()}>
-            <FaRegHeart className='text-[21px] sm:text-[23px]'/>
-            <p className='sm:pl-2 text-sm sm:text-base'>{props.likes}</p>
-        </button>
+        <>
+            {props.liked === true ? 
+            <button className='mr-4 flex flex-col items-center sm:flex-row' disabled>
+                <FaRegHeart className='text-[21px] sm:text-[23px] text-red-500'/>
+                <p className='sm:pl-2 text-sm sm:text-base text-red-500'>{props.likes}</p>
+            </button>
+            : 
+            <button className='mr-4 flex flex-col items-center sm:flex-row' onClick={() => handleClick()}>
+                <FaRegHeart className='text-[21px] sm:text-[23px]'/>
+                <p className='sm:pl-2 text-sm sm:text-base'>{props.likes}</p>
+            </button>}
+        </>
     )
 }
 

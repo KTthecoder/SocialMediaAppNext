@@ -90,7 +90,7 @@ const page = async (props: Props) => {
                                 </button>
                                 <button className='flex flex-col items-center sm:flex-row'>
                                     <FaRegComment className='text-[21px] sm:text-[23px]'/>
-                                    <p className='sm:pl-2 text-sm sm:text-base'>44</p>
+                                    <p className='sm:pl-2 text-sm sm:text-base'>{post.PostComments.length}</p>
                                 </button>
                             </div>
                             <SavePostBtn saved={post.SavedPosts[0] ? post.SavedPosts[0].postsId : ''} id={post?.id} username={post?.user.username}/>

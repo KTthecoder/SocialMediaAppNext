@@ -117,7 +117,7 @@ model PostComments {
   text          String
   LikedComments LikedComments[]
   createdAt     DateTime        @default(now())
-  posts         Posts           @relation(fields: [postsId], references: [id])
+  posts         Posts           @relation(fields: [postsId], references: [id], onDelete: Cascade)
   postsId       String
 }
 
