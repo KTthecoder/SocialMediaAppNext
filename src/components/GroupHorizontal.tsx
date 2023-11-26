@@ -16,7 +16,8 @@ type Props = {
 const GroupHorizontal = (props: Props) => {
   return (
     <div className='flex flex-row items-start justify-start mb-7'>
-      <img className='w-3/12 aspect-square rounded-md sm:w-[70px]' src={UserImage.src} alt='Group'/>
+      {props.image != '' ? <img className='w-3/12 aspect-square rounded-md sm:w-[70px]' src={props.image} alt='Group'/>
+      : <div className='w-3/12 aspect-square rounded-md sm:w-[70px] bg-[#222]'></div>}
       <div className='flex flex-col w-full pl-3 sm:pl-5 sm:flex-row sm:w-full sm:items-center justify-between'>
         <div className='flex flex-col items-start justify-center sm:pr-5'>
           <h2 className='font-medium tracking-wide text-lg -mt-2'>{props.name}</h2>

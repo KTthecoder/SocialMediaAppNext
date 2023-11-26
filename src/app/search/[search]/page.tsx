@@ -103,7 +103,7 @@ const page = async (props: Props) => {
                 {groups.length === 0 ? <h1 className='-mt-2 mb-5'>You are in 0 groups</h1> : 
                 <>
                 {groups.map((item, key) => (
-                    <GroupHorizontal image='' id={item.id} description={item.description} name={item.name} usersCount={item._count} visible={item.status} key={key}/>
+                    <GroupHorizontal image={item.image != null ? item.image : ''} id={item.id} description={item.description} name={item.name} usersCount={item._count} visible={item.status} key={key}/>
                 ))}
                 <Link className='bg-[#0a0a0a] rounded-md py-2 text-center mb-5 mt-2' href={`/search/groups/${props.params.search}`}>Load more</Link>
                 </>}

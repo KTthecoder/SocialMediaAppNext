@@ -102,9 +102,6 @@ const page = async (props: Props) => {
               : session?.user.username != user.username && user.profileImg != null ?
               <img className='w-[70px] aspect-square rounded-full' src={user.profileImg.toString()} alt={user.profileImgAlt?.toString()}/>
               : <div className='w-[70px] aspect-square rounded-full bg-[#222]'></div>}
-              {/* {currentUser?.profileImg != null 
-              ? <img className='w-[70px] aspect-square rounded-full' src={currentUser?.profileImg?.toString()} alt={currentUser?.profileImgAlt?.toString()}/>
-              : <div className='w-[70px] aspect-square rounded-full bg-[#222]'></div>} */}
               <p className='mt-3 tracking-wider font-medium sm:mt-4'>{user?.username}</p>
             </div>
             <div className='flex flex-row justify-end items-center'>

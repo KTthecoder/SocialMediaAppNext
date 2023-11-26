@@ -74,7 +74,7 @@ const CreatePostForm = (props: Props) => {
               <img src={base64} className='rounded-md aspect-square mt-5' alt='Post'/>
             )}
           </div>
-          <input type="file" name="avatar" accept="image/*" onChange={onFileChange} className='mt-5' />
+          <input type="file" name="avatar" accept="image/*" onChange={onFileChange} className='mt-5'/>
         </div>
         <div className='flex flex-col items-start justify-center px-4 w-full py-1 mt-5 rounded-md bg-[#060606]'>
           <label className='mt-2 pb-3 tracking-wide border-b border-b-[#111] w-full font-medium'>Description</label>

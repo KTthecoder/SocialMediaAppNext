@@ -14,7 +14,8 @@ type Props = {
 const DrawerGroup = (props: Props) => {
   return (
     <Link href={`/group/${props.id}`} className='flex flex-row items-center justify-start mb-5 w-full border-t border-t-[#222] pt-5'>
-      <img className='w-3/12 aspect-square rounded-md sm:w-[45px]' src={UserImage.src} alt='Group'/>
+      {props.image != null ? <img className='w-3/12 aspect-square rounded-md sm:w-[45px] bg-red-500' src={props.image} alt={props.imageAlt}/>
+      : <div className='w-3/12 aspect-square rounded-md sm:w-[45px] bg-[#222]'></div>}
       <div className='flex flex-col w-full pl-3 sm:pl-4 sm:items-center'>
         <div className='flex flex-col items-start justify-center w-full sm:pr-5 h-full'>
           <h2 className='font-medium tracking-wide -mt-1 text-base w-full'>{props.name}</h2>

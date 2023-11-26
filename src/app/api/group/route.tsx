@@ -15,12 +15,14 @@ export async function POST(req:Request){
             description: description,
             name: name,
             usersId: existingUserByUsername.id,
-            status: visibility
+            status: visibility,
+            image: images,
+            imageAlt: 'Group'
         }})
 
         const newUserInGroup = await prisma.userInGroup.create({data: {
             usersId: existingUserByUsername.id,
-            groupsId: newGroup.id
+            groupsId: newGroup.id,
         }})
     
         return NextResponse.json({message: 'Group created succesfully'}, {status: 201})

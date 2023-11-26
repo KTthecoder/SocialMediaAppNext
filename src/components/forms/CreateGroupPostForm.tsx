@@ -5,12 +5,12 @@ import PostImage from '@/static/images/postImage.png'
 import GroupImage from '@/static/images/shortImg.jpeg'
 
 type Props = {
-    username: string,
-    group: {
-        id: string,
-        image: string,
-        name: string | undefined,
-    },
+  username: string,
+  group: {
+    id: string,
+    image: string,
+    name: string | undefined,
+  },
 }
 
 const CreateGroupPostForm = (props: Props) => {
