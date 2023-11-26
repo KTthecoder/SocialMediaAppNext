@@ -6,16 +6,22 @@ import React, { FormEvent, useEffect, useState } from 'react'
 type Props = {
     username: string,
     description: string | null,
-    id: string
+    id: string,
+    profileImg: string | null,
+    profileImgAlt: string | null,
 }
 
 const EditAccountForm = (props: Props) => {
     const [username, setUsername] = useState(props.username)
     const [description, setDescription] = useState(props.description)
+    const [file, setFile] = useState<File | null>(null);
+    const [base64, setBase64] = useState<string | null>(null);
     const router = useRouter()
 
     const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        const base64 = await toBase64(file as File);
+        setBase64(base64 as string);
         const res = await fetch('http://localhost:3000/api/user', {
             method: 'PUT',
             headers: {
@@ -24,7 +30,8 @@ const EditAccountForm = (props: Props) => {
             body: JSON.stringify({
                 username: username,
                 description: description,
-                id: props.id
+                id: props.id,
+                image: base64
             })
         })
 
@@ -32,13 +39,48 @@ const EditAccountForm = (props: Props) => {
             alert('User edited succesfully')
             router.push(`/account/${username}`)
             router.refresh()
+            setFile(null);
+            setBase64(null);
         } else {
             alert('error occured')
         }
     }
 
+    const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) {
+          return;
+        }
+        
+        const base64 = await toBase64(e.target.files[0] as File);
+        setBase64(base64 as string);
+        setFile(e.target.files[0]);
+    };
+    
+    const toBase64 = (file: File) => {
+        return new Promise((resolve, reject) => {
+          const fileReader = new FileReader();
+      
+          fileReader.readAsDataURL(file);
+      
+          fileReader.onload = () => {
+            resolve(fileReader.result);
+          };
+      
+          fileReader.onerror = (error) => {
+            reject(error);
+          };
+        });
+    };
+
     return (
-        <form onSubmit={handleSubmit} className='flex flex-col justify-center w-full mt-5'>
+        <form onSubmit={handleSubmit} className='flex flex-col justify-center w-full'>
+            <div className='flex flex-col items-center justify-center'>
+                {base64 != null ? 
+                <img src={base64} className='w-[70px] aspect-square rounded-full' alt='Post'/>
+                : <img className='w-[70px] aspect-square rounded-full bg-[#222]' src={props.profileImg?.toString()} alt={props.profileImgAlt?.toString()}/>}
+                <input type="file" name="avatar" accept="image/*" onChange={onFileChange} className='my-5' />
+                {/* <button className='text-blue-500 mt-4'>Change image</button> */}
+            </div>
             <div className='flex flex-col items-start justify-center px-4 w-full py-1 rounded-md bg-[#060606]'>
                 <label className='mt-2 pb-3 tracking-wide border-b border-b-[#111] w-full font-medium'>Username</label>
                 <input className='w-full py-3 bg-transparent outline-none' type='text' placeholder='Username' name='username' value={username} onChange={(e) => setUsername(e.target.value)}/>

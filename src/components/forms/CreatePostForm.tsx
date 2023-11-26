@@ -1,10 +1,9 @@
 'use client'
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from "react";
-import PostImage from '@/static/images/postImage.png'
 
 type Props = {
-    username: string
+  username: string
 }
 
 const CreatePostForm = (props: Props) => {

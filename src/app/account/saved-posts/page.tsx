@@ -99,7 +99,8 @@ const page = async () => {
               else{
                 return false
               }
-            })} postImages={item.post.PostImages}/>
+            })} postImages={item.post.PostImages} profileImg={item.post.user.profileImg ? item.post.user.profileImg : null} 
+            profileImgAlt={item.post.user.profileImgAlt ? item.post.user.profileImgAlt : null}/>
           ))}
         </div>
         <div className="hidden xl:flex flex-col lg:w-3/12 lg:max-w-[270px]"></div>

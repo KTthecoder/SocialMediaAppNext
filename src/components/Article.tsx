@@ -12,8 +12,8 @@ import EditBtn from "./EditBtn";
 type Props = {
     userId: string,
     username: string,
-    profileImg?: string,
-    profileImgAlt?: string,
+    profileImg?: string | null,
+    profileImgAlt?: string | null,
     createdAt: string,
     description?: string,
     postImages?: {src: string; alt: string}[],
@@ -36,7 +36,8 @@ const Article = async (props: Props) => {
         <div className='w-full flex flex-col items-center justify-center mb-10'>
             <div className='w-full flex flex-row items-center justify-between border-b-[#222] border-b mb-2 pb-3'>
                 <Link href={`/account/${props.username}`} className='flex flex-row items-center justify-start'>
-                    <img className='w-[40px] h-[40px] rounded-full bg-center bg-cover' src={ProfileImg.src} alt='Profile'/>
+                    {props.profileImg != null ? <img className='w-[40px] h-[40px] rounded-full bg-center bg-cover' src={props.profileImg} alt={props.profileImg}/> 
+                    : <div className='w-[40px] h-[40px] rounded-full bg-center bg-cover bg-[#222]'></div>}
                     <p className='pl-3'>{props.username}</p>
                 </Link>
                 <div className='items-center justify-end w-5/12 hidden sm:flex'>

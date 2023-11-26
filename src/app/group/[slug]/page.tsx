@@ -101,7 +101,8 @@ const page = async (props: Props) => {
               else{
                 return false
               }
-            })} postImages={item.PostImages}/>
+            })} postImages={item.PostImages} profileImg={item.user.profileImg ? item.user.profileImg : null} 
+            profileImgAlt={item.user.profileImgAlt ? item.user.profileImgAlt : null}/>
           ))}
         </div>
         <div className="hidden xl:flex flex-col lg:w-3/12 lg:max-w-[270px]"></div>

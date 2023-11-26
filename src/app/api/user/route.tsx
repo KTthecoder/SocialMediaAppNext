@@ -34,7 +34,7 @@ export async function POST(req:Request){
 export async function PUT(req:Request){
     try{
         const body = await req.json()
-        const { id, username, description } = body
+        const { id, username, description, image } = body
 
         const existingUser = await prisma.users.findUnique({where: {id: id}})
         if(!existingUser){
@@ -53,6 +53,8 @@ export async function PUT(req:Request){
             description: description,
             email: existingUser.email,
             password: existingUser.password,
+            profileImg: image,
+            profileImgAlt: 'Profile'
         }})
         
         return NextResponse.json({message: 'User updated succesfully'}, {status: 200})

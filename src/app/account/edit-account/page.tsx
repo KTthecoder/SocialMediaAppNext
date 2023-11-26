@@ -31,11 +31,8 @@ const page = async (props: Props) => {
             <div className='flex flex-col mb-8 border-b border-b-[#111] pb-5'>
               <h1 className='text-2xl tracking-wider pt-3 flex items-center'><RiUserSettingsLine size={25} className='mr-3'/>Edit Profile</h1>
             </div>
-            <div className='flex flex-col items-center justify-center'>
-              <img className='w-[70px] aspect-square rounded-full' src={ProfileImg.src} alt='Profile'/>
-              <button className='text-blue-500 mt-4'>Change image</button>
-            </div>
-            {user != null ? <EditAccountForm username={user.username} description={user.description} id={session.user.id}/> : null}
+            
+            {user != null ? <EditAccountForm username={user.username} description={user.description} id={session.user.id} profileImg={user.profileImg} profileImgAlt={user.profileImgAlt}/> : null}
           </div>
           <div className="hidden xl:flex flex-col lg:w-3/12 lg:max-w-[270px]"></div>
         </div>

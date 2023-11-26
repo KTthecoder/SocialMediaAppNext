@@ -55,7 +55,8 @@ const FriendBlock = (props: Props) => {
 
   return (
     <div className='flex flex-col'>
-      <img className='rounded-md aspect-square bg-contain bg-center' src={UserImg.src} alt='User'/>
+      {props.profileImg != null ? <img className='rounded-md aspect-square bg-contain bg-center' src={props.profileImg?.toString()} alt={props.profileImgAlt?.toString()}/>
+      : <div className='rounded-md aspect-square bg-contain bg-center bg-[#222]'></div>}
       <p className='mt-2 text-base text-center border-t border-b border-t-[#111] border-b-[#111] py-2'>{props.username}</p>
       <div className='flex flex-col'>
         {props.type === 'Pending' ?

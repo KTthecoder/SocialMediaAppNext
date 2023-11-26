@@ -97,7 +97,14 @@ const page = async (props: Props) => {
         <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
           <div className='flex flex-row items-start justify-between'>
             <div className='flex flex-col'>
-              <img className='w-[70px] aspect-square rounded-full' src={ProfileImg.src} alt='Profile'/>
+              {session?.user.username === user.username && currentUser?.profileImg != null 
+              ? <img className='w-[70px] aspect-square rounded-full' src={currentUser?.profileImg?.toString()} alt={currentUser?.profileImgAlt?.toString()}/>
+              : session?.user.username != user.username && user.profileImg != null ?
+              <img className='w-[70px] aspect-square rounded-full' src={user.profileImg.toString()} alt={user.profileImgAlt?.toString()}/>
+              : <div className='w-[70px] aspect-square rounded-full bg-[#222]'></div>}
+              {/* {currentUser?.profileImg != null 
+              ? <img className='w-[70px] aspect-square rounded-full' src={currentUser?.profileImg?.toString()} alt={currentUser?.profileImgAlt?.toString()}/>
+              : <div className='w-[70px] aspect-square rounded-full bg-[#222]'></div>} */}
               <p className='mt-3 tracking-wider font-medium sm:mt-4'>{user?.username}</p>
             </div>
             <div className='flex flex-row justify-end items-center'>
@@ -155,7 +162,8 @@ const page = async (props: Props) => {
               else{
                 return false
               }
-            })} postImages={item.PostImages}/>
+            })} postImages={item.PostImages} profileImg={item.user.profileImg ? item.user.profileImg : null} 
+            profileImgAlt={item.user.profileImgAlt ? item.user.profileImgAlt : null}/>
           ))}
         </div>
         <div className="hidden xl:flex flex-col lg:w-3/12 lg:max-w-[270px]"></div>

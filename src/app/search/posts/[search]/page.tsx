@@ -110,7 +110,8 @@ const page = async (props: Props) => {
                         else{
                           return false
                         }
-                    })} postImages={item.PostImages}/>
+                    })} postImages={item.PostImages} profileImg={item.user.profileImg ? item.user.profileImg : null} 
+                    profileImgAlt={item.user.profileImgAlt ? item.user.profileImgAlt : null}/>
                 ))}
                 <Link className='bg-[#0a0a0a] rounded-md py-2 text-center mb-5 mt-2' href='/'>Load more</Link>
             </div>
