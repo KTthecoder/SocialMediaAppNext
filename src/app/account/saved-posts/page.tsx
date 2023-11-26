@@ -36,7 +36,7 @@ const page = async () => {
             id: true,
           }
         },
-        SavedPosts: {select: {postsId: true}},
+        SavedPosts: {where: {usersId: session?.user.id}, select: {postsId: true, usersId: true}},
         PostComments: {
           select: {
             text: true,
@@ -72,8 +72,15 @@ const page = async () => {
         <DrawerNavLeft groups={groups} user={{username: user?.username, profileImg: user?.profileImg?.toString(), profileImgAlt: user?.profileImgAlt?.toString()}}/>
         <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
           <h1 className='text-2xl tracking-wider pt-3 mb-10 border-b border-b-[#111] pb-5 flex items-center'><MdSaveAlt size={25} className='mr-3'/> Saved Posts</h1>
-          {posts.length === 0 ? <h1 className='-mt-5'>No saved posts found</h1> :posts.map((item, key) => (
-            <Article currentUserId={session?.user.id} userId={item.post.user.id} comments={item.post.PostComments} key={key} saved={item.post.SavedPosts[0] ? item.post.SavedPosts[0].postsId : ''} id={item.post.id} createdAt={item.post.createdAt.toLocaleDateString().toString()} username={item.post.user.username} description={item.post.description?.toString()} 
+          {posts.length === 0 ? <h1 className='-mt-5'>No saved posts found</h1> : posts.map((item, key) => (
+            <Article currentUserId={session?.user.id} userId={item.post.user.id} comments={item.post.PostComments} key={key} saved={session && item.post.SavedPosts.map((item1) => {
+              if(item1.postsId === item.post.id && item1.usersId === session.user.id){
+                return true
+              }
+              else{
+                return false
+              }
+            })} id={item.post.id} createdAt={item.post.createdAt.toLocaleDateString().toString()} username={item.post.user.username} description={item.post.description?.toString()} 
             likes={item.post.likes} disLikes={item.post.disLikes} number={key} liked={session && item.post.LikedPosts.map((item1) => {
               if(item1.postId === item.post.id && item1.usersId === session.user.id){
                 return true

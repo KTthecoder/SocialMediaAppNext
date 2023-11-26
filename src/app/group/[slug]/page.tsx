@@ -41,7 +41,7 @@ const page = async (props: Props) => {
         id: true,
       }
     },
-    SavedPosts: {select: {postsId: true}},
+    SavedPosts: {where: {usersId: session?.user.id}, select: {postsId: true, usersId: true}},
     PostComments: {
       select: {
         text: true,
@@ -75,7 +75,14 @@ const page = async (props: Props) => {
             <Link href={`/account/create-post/group/${props.params.slug}`} className='bg-blue-500 rounded-full w-[42px] h-[40px] flex justify-center items-center mt-5 sm:mt-0'><IoMdAdd size={25}/></Link>
           </div>
           {posts.length === 0 ? <h1 className='-mt-2'>No posts in group</h1> : posts.map((item, key) => (
-            <Article currentUserId={session?.user.id} userId={item.user.id} comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
+            <Article currentUserId={session?.user.id} userId={item.user.id} comments={item.PostComments} key={key} saved={session && item.SavedPosts.map((item1) => {
+              if(item1.postsId === item.id && item1.usersId === session.user.id){
+                return true
+              }
+              else{
+                return false
+              }
+            })} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
             likes={item.likes} disLikes={item.disLikes} number={key} liked={session && item.LikedPosts.map((item1) => {
               if(item1.postId === item.id && item1.usersId === session.user.id){
                 return true

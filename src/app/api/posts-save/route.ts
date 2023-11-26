@@ -6,13 +6,13 @@ export async function POST(req:Request){
         const body = await req.json()
         const { postId, username } = body
     
-        const existingUserByUsername = await prisma.users.findFirst({where: {username: username}})
-        if(!existingUserByUsername){
-            return NextResponse.json({message: 'User with that username does not exists'}, {status: 409})
+        const existingUserById = await prisma.users.findFirst({where: {id: username}})
+        if(!existingUserById){
+            return NextResponse.json({message: 'User with that id does not exists'}, {status: 409})
         }
     
         const newPost = await prisma.savedPosts.create({data: {
-            usersId: existingUserByUsername.id,
+            usersId: existingUserById.id,
             postsId: postId
         }})
     

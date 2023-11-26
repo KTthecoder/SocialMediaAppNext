@@ -21,7 +21,7 @@ type Props = {
     disLikes?: number,
     commentsCount?: number,
     id: string,
-    saved: string,
+    saved: boolean[] | undefined | null,
     comments: {user: {username: string}, text: string}[],
     current?: boolean,
     currentUser?: string,
@@ -65,7 +65,11 @@ const Article = async (props: Props) => {
                     </Link>
                     {props.currentUser && props.currentUser === props.username ? <EditBtn currentUser={props.currentUser} postId={props.id}/> : null}
                 </div>
-                {props.currentUserId ? <SavePostBtn saved={props.saved} id={props.id} username={props.currentUser}/> : null}
+
+                {props.saved && props.saved[0] === true ?
+                <SavePostBtn saved={true} id={props.id} username={props.currentUserId}/> : 
+                <SavePostBtn saved={false} id={props.id} username={props.currentUserId}/>}
+                {/* {props.currentUserId ? <SavePostBtn saved={props.saved} id={props.id} username={props.currentUser}/> : null} */}
             </div>
             <div className="flex flex-col w-full">
                 {props.comments.length === 0 ? null
