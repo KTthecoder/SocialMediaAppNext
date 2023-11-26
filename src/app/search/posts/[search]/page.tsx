@@ -61,6 +61,10 @@ const page = async (props: Props) => {
                 }
             }
         },
+        PostImages: {select: {
+            src: true, 
+            alt: true,
+        }},
         LikedPosts: {
           where: {usersId: session?.user.id},
           select: {usersId: true, postId: true}
@@ -106,7 +110,7 @@ const page = async (props: Props) => {
                         else{
                           return false
                         }
-                    })}/>
+                    })} postImages={item.PostImages}/>
                 ))}
                 <Link className='bg-[#0a0a0a] rounded-md py-2 text-center mb-5 mt-2' href='/'>Load more</Link>
             </div>

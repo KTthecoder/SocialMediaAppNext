@@ -13,7 +13,8 @@ export async function POST(req:Request){
     
         const newPost = await prisma.posts.create({data: {
             description: description,
-            usersId: existingUserByUsername.id
+            usersId: existingUserByUsername.id,
+            PostImages: {create: {src: images, alt: 'Post'}}
         }})
     
         return NextResponse.json({message: 'Post created succesfully'}, {status: 201})
@@ -24,7 +25,7 @@ export async function POST(req:Request){
 }
 
 export async function DELETE(req:Request){
-    // try{
+    try{
         const body = await req.json()
         const { username, postId } = body
     
@@ -44,8 +45,8 @@ export async function DELETE(req:Request){
         }})
 
         return NextResponse.json({message: 'Post deleted succesfully'}, {status: 200})
-    // }
-    // catch (error){
-    //     return NextResponse.json({message: 'Something went wrong'}, {status: 500})
-    // }
+    }
+    catch (error){
+        return NextResponse.json({message: 'Something went wrong'}, {status: 500})
+    }
 }

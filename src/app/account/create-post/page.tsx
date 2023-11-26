@@ -23,7 +23,7 @@ const page = async () => {
   const groups = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
     _count: {select: {UserInGroup: true}}
   }})
-
+  
   if(!session?.user || !user){
     return notFound()
   }

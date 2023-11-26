@@ -35,7 +35,11 @@ const page = async () => {
             profileImg: true,
             id: true,
           }
-        },
+        }, 
+        PostImages: {select: {
+          src: true, 
+          alt: true,
+        }},
         SavedPosts: {where: {usersId: session?.user.id}, select: {postsId: true, usersId: true}},
         PostComments: {
           select: {
@@ -95,7 +99,7 @@ const page = async () => {
               else{
                 return false
               }
-            })}/>
+            })} postImages={item.post.PostImages}/>
           ))}
         </div>
         <div className="hidden xl:flex flex-col lg:w-3/12 lg:max-w-[270px]"></div>

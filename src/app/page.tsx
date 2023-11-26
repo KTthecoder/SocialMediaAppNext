@@ -49,6 +49,10 @@ export default async function Home() {
     likes: true,
     disLikes: true,
     id: true,
+    PostImages: {select: {
+      src: true, 
+      alt: true,
+    }},
     user: {
       select: {
         username: true,
@@ -112,7 +116,7 @@ export default async function Home() {
                 else{
                   return false
                 }
-              })}/>
+              })} postImages={item.PostImages}/>
             ))}
           </div>
           <DrawerNavRight isAuthenticated={true} friends={friends} userId={null} currentUsername={session.user.username}/>
@@ -135,7 +139,7 @@ export default async function Home() {
                 return false
               }
             })} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
-            likes={item.likes} disLikes={item.disLikes}/>
+            likes={item.likes} disLikes={item.disLikes} postImages={item.PostImages}/>
           ))}
         </div>
         <DrawerNavRight isAuthenticated={false} userId={user?.id}/>

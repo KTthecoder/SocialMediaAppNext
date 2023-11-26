@@ -67,7 +67,11 @@ const page = async (props: Props) => {
     DisLikedPosts: {
       where: {usersId: session?.user.id},
       select: {usersId: true, postsId: true}
-    }
+    },
+    PostImages: {select: {
+      src: true, 
+      alt: true,
+    }}
   }})
   const groups = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
     _count: {select: {UserInGroup: true}}
@@ -151,7 +155,7 @@ const page = async (props: Props) => {
               else{
                 return false
               }
-            })}/>
+            })} postImages={item.PostImages}/>
           ))}
         </div>
         <div className="hidden xl:flex flex-col lg:w-3/12 lg:max-w-[270px]"></div>

@@ -16,7 +16,7 @@ type Props = {
     profileImgAlt?: string,
     createdAt: string,
     description?: string,
-    postImages?: string[],
+    postImages?: {src: string; alt: string}[],
     likes?: number,
     disLikes?: number,
     commentsCount?: number,
@@ -49,7 +49,9 @@ const Article = async (props: Props) => {
                 {props.description != undefined && props.description?.length >= 200 ? <button className='text-blue-500 -mt-3 mb-4'>Load more</button> : null}
             </div>
             <Link href={`/post/${props.id}`}>
-                <img src={PostImage.src} className='aspect-[6/5]' alt='Main'/>
+                {props.postImages && props.postImages?.map((item) => (
+                    <img src={item.src} className='aspect-[6/5]' alt={item.alt}/>
+                ))}  
             </Link>
             <div className='flex items-start justify-between w-full mt-4 border-b border-b-[#222] pb-4 mb-4'>
                 <div className='flex flex-row'>
@@ -65,11 +67,9 @@ const Article = async (props: Props) => {
                     </Link>
                     {props.currentUser && props.currentUser === props.username ? <EditBtn currentUser={props.currentUser} postId={props.id}/> : null}
                 </div>
-
                 {props.saved && props.saved[0] === true ?
                 <SavePostBtn saved={true} id={props.id} username={props.currentUserId}/> : 
                 <SavePostBtn saved={false} id={props.id} username={props.currentUserId}/>}
-                {/* {props.currentUserId ? <SavePostBtn saved={props.saved} id={props.id} username={props.currentUser}/> : null} */}
             </div>
             <div className="flex flex-col w-full">
                 {props.comments.length === 0 ? null
