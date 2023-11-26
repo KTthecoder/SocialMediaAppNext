@@ -19,7 +19,8 @@ export async function POST(req:Request){
         const newPost = await prisma.posts.create({data: {
             description: description,
             usersId: existingUserByUsername.id,
-            groupsId: groupId
+            groupsId: groupId,
+            PostImages: {create: {src: images, alt: 'Post'}}
         }})
     
         return NextResponse.json({message: 'Post created succesfully'}, {status: 201})

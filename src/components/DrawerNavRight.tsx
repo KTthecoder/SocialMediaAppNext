@@ -50,9 +50,9 @@ const DrawerNavRight = (props: Props) => {
                 <div className={`${showFriends === false ? 'hidden' : 'flex'} flex-col`}>
                     {props.friends?.length === 0 ? null : props.friends?.map((item, key) => (
                         item.user1.username === props.currentUsername ? 
-                            <DrawerFriend key={key} profileImg={item.user2.profileImg} username={item.user2.username} profileImgAlt={item.user1.profileImgAlt}/>
+                            <DrawerFriend key={key} profileImg={item.user2.profileImg} username={item.user2.username} profileImgAlt={item.user2.profileImgAlt}/>
                         : item.user2.username === props.currentUsername ? 
-                            <DrawerFriend key={key} profileImg={item.user2.profileImg} username={item.user2.username} profileImgAlt={item.user1.profileImgAlt}/>
+                            <DrawerFriend key={key} profileImg={item.user1.profileImg} username={item.user1.username} profileImgAlt={item.user1.profileImgAlt}/>
                         : null
                     ))}
                 </div>

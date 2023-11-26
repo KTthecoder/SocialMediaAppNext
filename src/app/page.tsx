@@ -25,7 +25,8 @@ export default async function Home() {
       user1Id: user?.id,
     }, {
       user2Id: user?.id
-    }]
+    }],
+    isPending: false
   }, select: {
     user1: {
       select: {
@@ -40,7 +41,7 @@ export default async function Home() {
         profileImg: true,
         profileImgAlt: true,
       }
-    }
+    },
   }, take: 6})
   
   const posts = await prisma.posts.findMany({select: {

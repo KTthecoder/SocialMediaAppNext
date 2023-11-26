@@ -11,7 +11,8 @@ type Props = {
 const DrawerFriend = (props: Props) => {
   return (
     <Link href={`/account/${props.username}`} className="flex items-center justify-start w-full border-b-[#222] border-b py-4">
-      <img className="w-[37px] h-[37px] rounded-full" src={UserImage.src} alt='User'/>
+      {props.profileImg != null ? <img className="w-[37px] h-[37px] rounded-full" src={props.profileImg?.toString()} alt={props.profileImgAlt?.toString()}/>
+      : <div className="w-[37px] h-[37px] rounded-full bg-[#222]"></div>}
       <p className="pl-3">{props.username}</p>
     </Link>
   )
