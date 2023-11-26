@@ -59,6 +59,10 @@ const page = async (props: Props) => {
         LikedPosts: {
           where: {usersId: session?.user.id},
           select: {usersId: true, postId: true}
+        },
+        DisLikedPosts: {
+          where: {usersId: session?.user.id},
+          select: {usersId: true, postsId: true}
         }
     }, orderBy: {createdAt: 'desc'}})
     const groups = await prisma.groups.findMany({where: {OR: [{name: {contains: props.params.search}}, {description: {contains: props.params.search}}]}, orderBy: {createdAt: 'desc'}, include: {
@@ -123,7 +127,14 @@ const page = async (props: Props) => {
                         else{
                           return false
                         }
-                      })}/>
+                    })} disLiked={session && item.DisLikedPosts.map((item1) => {
+                        if(item1.postsId === item.id && item1.usersId === session.user.id){
+                          return true
+                        }
+                        else{
+                          return false
+                        }
+                    })}/>
                 ))}
                 <Link className='bg-[#0a0a0a] rounded-md py-2 text-center mb-5 mt-2' href={`/search/posts/${props.params.search}`}>Load more</Link>
                 </>}

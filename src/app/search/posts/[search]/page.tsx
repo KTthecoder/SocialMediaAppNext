@@ -64,6 +64,10 @@ const page = async (props: Props) => {
         LikedPosts: {
           where: {usersId: session?.user.id},
           select: {usersId: true, postId: true}
+        },
+        DisLikedPosts: {
+          where: {usersId: session?.user.id},
+          select: {usersId: true, postsId: true}
         }
     }, orderBy: {createdAt: 'desc'}})
 
@@ -83,6 +87,13 @@ const page = async (props: Props) => {
                     <Article currentUserId={session?.user.id} userId={item.user.id} comments={item.PostComments} key={key} saved={item.SavedPosts[0] ? item.SavedPosts[0].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
                     likes={item.likes} disLikes={item.disLikes} number={key} liked={session && item.LikedPosts.map((item1) => {
                         if(item1.postId === item.id && item1.usersId === session.user.id){
+                          return true
+                        }
+                        else{
+                          return false
+                        }
+                    })} disLiked={session && item.DisLikedPosts.map((item1) => {
+                        if(item1.postsId === item.id && item1.usersId === session.user.id){
                           return true
                         }
                         else{

@@ -27,7 +27,8 @@ type Props = {
     currentUser?: string,
     currentUserId?: string,
     liked?: boolean[] | undefined | null,
-    number: number
+    disLiked?: boolean[] | undefined | null,
+    number: number,
 }
 
 const Article = async (props: Props) => {    
@@ -55,7 +56,9 @@ const Article = async (props: Props) => {
                     {props.liked && props.liked[0] === true ?
                     <LikePostBtn likes={props.likes} postId={props.id} userId={props.currentUserId} liked={true}/> : 
                     <LikePostBtn likes={props.likes} postId={props.id} userId={props.currentUserId} liked={false}/>}
-                    <DislikePostBtn disLikes={props.disLikes} postId={props.id} userId={props.userId} liked={false}/>
+                    {props.disLiked && props.disLiked[0] === true ?
+                    <DislikePostBtn disLikes={props.disLikes} postId={props.id} userId={props.currentUserId} liked={true}/> : 
+                    <DislikePostBtn disLikes={props.disLikes} postId={props.id} userId={props.currentUserId} liked={false}/>}
                     <Link href={`/post/${props.id}`} className='flex flex-col items-center sm:flex-row'>
                         <FaRegComment className='text-[21px] sm:text-[23px]'/>
                         <p className='sm:pl-2 text-sm sm:text-base'>{props.comments.length}</p>

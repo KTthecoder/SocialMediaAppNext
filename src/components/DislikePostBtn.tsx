@@ -5,7 +5,7 @@ import { BiDislike } from "react-icons/bi";
 
 type Props = {
     disLikes: number | undefined,
-    userId: string,
+    userId: string | undefined,
     postId: string,
     liked: boolean,
 }

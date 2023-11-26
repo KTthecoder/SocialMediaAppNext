@@ -63,6 +63,10 @@ const page = async (props: Props) => {
     LikedPosts: {
       where: {usersId: session?.user.id},
       select: {usersId: true, postId: true}
+    },
+    DisLikedPosts: {
+      where: {usersId: session?.user.id},
+      select: {usersId: true, postsId: true}
     }
   }})
   const groups = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
@@ -128,6 +132,13 @@ const page = async (props: Props) => {
             <Article currentUserId={session?.user.id} userId={item.user.id} comments={item.PostComments} key={key} saved={item.SavedPosts[key] ? item.SavedPosts[key].postsId : ''} id={item.id} createdAt={item.createdAt.toLocaleDateString().toString()} username={item.user.username} description={item.description?.toString()} 
             likes={item.likes} disLikes={item.disLikes} current={true} currentUser={session?.user.username} number={key} liked={session && item.LikedPosts.map((item1) => {
               if(item1.postId === item.id && item1.usersId === session.user.id){
+                return true
+              }
+              else{
+                return false
+              }
+            })} disLiked={session && item.DisLikedPosts.map((item1) => {
+              if(item1.postsId === item.id && item1.usersId === session.user.id){
                 return true
               }
               else{

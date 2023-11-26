@@ -50,6 +50,10 @@ const page = async () => {
         LikedPosts: {
           where: {usersId: session?.user.id},
           select: {usersId: true, postId: true}
+        },
+        DisLikedPosts: {
+          where: {usersId: session?.user.id},
+          select: {usersId: true, postsId: true}
         }
       }
     }
@@ -72,6 +76,13 @@ const page = async () => {
             <Article currentUserId={session?.user.id} userId={item.post.user.id} comments={item.post.PostComments} key={key} saved={item.post.SavedPosts[0] ? item.post.SavedPosts[0].postsId : ''} id={item.post.id} createdAt={item.post.createdAt.toLocaleDateString().toString()} username={item.post.user.username} description={item.post.description?.toString()} 
             likes={item.post.likes} disLikes={item.post.disLikes} number={key} liked={session && item.post.LikedPosts.map((item1) => {
               if(item1.postId === item.post.id && item1.usersId === session.user.id){
+                return true
+              }
+              else{
+                return false
+              }
+            })} disLiked={session && item.post.DisLikedPosts.map((item1) => {
+              if(item1.postsId === item.post.id && item1.usersId === session.user.id){
                 return true
               }
               else{
