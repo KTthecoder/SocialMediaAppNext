@@ -34,7 +34,7 @@ const page = async () => {
       <div className='w-10/12 flex flex-row justify-center mt-24 max-w-[1700px] lg:justify-between lg:mt-28'>
         <DrawerNavLeft groups={groupsCounter} user={{username: user?.username, profileImg: user?.profileImg?.toString(), profileImgAlt: user?.profileImgAlt?.toString()}}/>
         <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
-          <div className='flex flex-col mb-7 border-b border-b-[#111] pb-5 sm:justify-between sm:flex-row sm:w-full'>
+          <div className='flex flex-col mb-7 border-b border-b-[#222] pb-5 sm:justify-between sm:flex-row sm:w-full'>
             <h1 className='text-2xl tracking-wider pt-3 flex items-center'><GrGroup size={25} className='mr-3'/>Groups</h1>
             <Link href='/create-group' className='bg-blue-500 rounded-md py-1 text-center w-36 mt-4 sm:py-2'>Create group</Link>
           </div>

@@ -78,7 +78,7 @@ const page = async () => {
       <div className='w-10/12 flex flex-row justify-center mt-24 max-w-[1700px] lg:justify-between lg:mt-28'>
         <DrawerNavLeft groups={groups} user={{username: user?.username, profileImg: user?.profileImg?.toString(), profileImgAlt: user?.profileImgAlt?.toString()}}/>
         <div className='flex flex-col w-full lg:w-8/12 2xl:w-9/12'>
-          <h1 className='text-2xl tracking-wider pt-3 pb-5 mb-10 border-b border-b-[#111] flex items-center'><MdOutlineMarkEmailUnread  size={25} className='mr-3'/> Friend Invitations</h1>
+          <h1 className='text-2xl tracking-wider pt-3 pb-5 mb-10 border-b border-b-[#222] flex items-center'><MdOutlineMarkEmailUnread  size={25} className='mr-3'/> Friend Invitations</h1>
           <div className='w-full grid grid-cols-2 gap-5 sm:grid-cols-3 lg-ml-10 xl:grid-cols-4 xl:gap-7 2xl:grid-cols-5'>
             {friendsPending.length === 0 ? <h1 className='-mt-5'>You have 0 invitations</h1> : friendsPending.map((item, key) => (
               item.user1.username === session?.user.username ? 
@@ -88,7 +88,7 @@ const page = async () => {
               : null
             ))}
           </div>
-          <h1 className='text-2xl tracking-wider pt-10 pb-5 mb-10 border-b border-b-[#111] flex items-center'><LuUsers size={25} className='mr-3'/> Your Friends</h1>
+          <h1 className='text-2xl tracking-wider pt-10 pb-5 mb-10 border-b border-b-[#222] flex items-center'><LuUsers size={25} className='mr-3'/> Your Friends</h1>
           <div className='w-full grid grid-cols-2 gap-5 sm:grid-cols-3 lg-ml-10 xl:grid-cols-4 xl:gap-7 2xl:grid-cols-5'>
             {friends.length === 0 ? <h1 className='-mt-5'>You have 0 friends</h1> : friends.map((item, key) => (
               item.user1.username === session?.user.username ? 

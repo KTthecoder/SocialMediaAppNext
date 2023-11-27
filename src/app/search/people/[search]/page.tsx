@@ -52,9 +52,9 @@ const page = async (props: Props) => {
             <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
                 <div className='flex flex-col mb-10'>
                     <h1 className='text-2xl tracking-wider pt-3 mb-3 flex items-center'><IoMdSearch size={25} className='mr-3'/> Search results</h1>
-                    <p className='text-gray-300 tracking-wide border-t border-t-[#111] pt-3'><span className='font-medium text-gray-200'>Found for: </span>{props.params.search}</p>
+                    <p className='text-gray-300 tracking-wide border-t border-t-[#222] pt-3'><span className='font-medium text-gray-200'>Found for: </span>{props.params.search}</p>
                 </div>
-                <div className='flex flex-col mb-7 border-b border-b-[#111] pb-5'>
+                <div className='flex flex-col mb-7 border-b border-b-[#222] pb-5'>
                     <h1 className='text-2xl tracking-wider pt-3 flex items-center'><LuUsers size={25} className='mr-3'/>People</h1>
                 </div>
                 {people.length === 0 ? <h1 className='-mt-5'>Can&apos;t find users</h1> : people.map((item, key) => (

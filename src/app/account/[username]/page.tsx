@@ -138,7 +138,7 @@ const page = async (props: Props) => {
               <DeleteFriendBtn user1Id={currentUser?.id} user2Id={user.id}/>
             : null}
           </div>
-          <div className='flex flex-col mb-10 border-b border-b-[#111] pb-5 mt-8'>
+          <div className='flex flex-col mb-10 border-b border-b-[#222] pb-5 mt-8'>
             <h1 className='text-2xl tracking-wider pt-3 flex items-center'><MdOutlineArticle size={25} className='mr-3'/> 
             {session?.user.username === user.username ? " Your Posts" : "User's Posts"}</h1>
           </div>

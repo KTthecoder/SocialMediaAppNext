@@ -24,7 +24,7 @@ const Navbar = (props: Props) => {
                 <Link className="tracking-wide text-2xl font-lg" href='/'>SocialMedia</Link>
                 <div className="flex items-center justify-center">
                     <div className="hidden sm:flex rounded-full items-center bg-[#111] pr-3 pl-4 box-border lg:w-[330px]">
-                        <input className="py-2 border-none bg-[#111] mr-4 outline-none lg:w-full" type="text" onChange={(e) => setSearch(e.target.value)} placeholder="Search"/>
+                        <input className="py-2 border-none bg-[#222] mr-4 outline-none lg:w-full" type="text" onChange={(e) => setSearch(e.target.value)} placeholder="Search"/>
                         <button onClick={() => {
                             router.push(`/search/${search}`)
                             router.refresh()

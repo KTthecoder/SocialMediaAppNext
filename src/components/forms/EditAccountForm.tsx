@@ -82,11 +82,11 @@ const EditAccountForm = (props: Props) => {
                 <input type="file" name="avatar" accept="image/*" onChange={onFileChange} className='my-5' />
             </div>
             <div className='flex flex-col items-start justify-center px-4 w-full py-1 rounded-md bg-[#060606]'>
-                <label className='mt-2 pb-3 tracking-wide border-b border-b-[#111] w-full font-medium'>Username</label>
+                <label className='mt-2 pb-3 tracking-wide border-b border-b-[#222] w-full font-medium'>Username</label>
                 <input className='w-full py-3 bg-transparent outline-none' type='text' placeholder='Username' name='username' value={username} onChange={(e) => setUsername(e.target.value)}/>
             </div>
             <div className='flex flex-col items-start justify-center px-4 w-full py-1 mt-5 rounded-md bg-[#060606]'>
-                <label className='mt-2 pb-3 tracking-wide border-b border-b-[#111] w-full font-medium'>Description</label>
+                <label className='mt-2 pb-3 tracking-wide border-b border-b-[#222] w-full font-medium'>Description</label>
                 <textarea className='w-full py-3 bg-transparent outline-none' placeholder='Description' name='description' value={description?.toString()} onChange={(e) => setDescription(e.target.value)}/>
             </div>
             <div className='flex flex-col md:flex-row'>
