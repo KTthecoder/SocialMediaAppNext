@@ -12,7 +12,6 @@ type Props = {
 
 const LikePostBtn = (props: Props) => {
     const route = useRouter()
-    console.log(props.liked)
 
     const handleClick = async () => {
         const res = await fetch('http://localhost:3000/api/like-post', {

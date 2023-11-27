@@ -1,9 +1,5 @@
 import type { Metadata } from 'next'
-import PostImg from '@/static/images/postImage.png'
-import ProfileImg from '@/static/images/shortImg.jpeg'
 import { IoCalendarClearOutline } from "react-icons/io5";
-import { FaRegHeart } from "react-icons/fa";
-import { BiDislike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import Link from 'next/link'
 import prisma from '@/lib/db'
@@ -14,6 +10,7 @@ import { notFound } from 'next/navigation'
 import AddCommentForm from '@/components/forms/AddCommentForm';
 import LikePostBtn from '@/components/LikePostBtn';
 import DislikePostBtn from '@/components/DislikePostBtn';
+import Image from 'next/image';
 
 type Props = {
     params: {
@@ -57,6 +54,7 @@ const page = async (props: Props) => {
                 },
                 _count: true
             },
+            orderBy: {createdAt: 'desc'}
         },
         LikedPosts: {
             where: {usersId: session?.user.id, postId: props.params.slug},
@@ -68,8 +66,6 @@ const page = async (props: Props) => {
         }
     }})
 
-    console.log(post?.LikedPosts)
-
     if(!post){
         return notFound()
     }
@@ -79,14 +75,14 @@ const page = async (props: Props) => {
             <div className='w-full flex flex-col justify-center mt-20 md:w-9/12 md:mt-24 lg:w-full lg:justify-between lg:mt-28 max-w-[1700px]'>
                 <div className='flex flex-col justify-center items-center lg:flex-row lg:justify-between lg:items-start lg:px-10'>
                     <div className='flex justify-center items-center w-full lg:w-7/12 lg:mr-12 xl:pr-12 2xl:pr-24'>
-                        {post.PostImages.map((item) => (
-                            <img src={item.src} alt={item.alt}/>
+                        {post.PostImages.map((item, key) => (
+                            <Image key={key} width={0} height={0} sizes={'100%'} style={{ width: '100%', height: 'auto' }} src={item.src} alt={item.alt}/>
                         ))}
                     </div>
                     <div className='flex flex-col w-10/12 items-center mt-1 md:w-full lg:w-5/12 lg:mt-0'>
                         <div className='w-full flex flex-row items-center justify-between border-b-[#222] border-b mb-2 pb-3 mt-5 lg:mt-0'>
                             <Link href={`/account/${post.user.username}`} className='flex flex-row items-center justify-start'>
-                                {post.user.profileImg != null ? <img className='w-[40px] h-[40px] rounded-full bg-center bg-cover' src={post.user.profileImg} alt='User'/>
+                                {post.user.profileImg != null ? <Image width={0} height={0} sizes={'100%'} className='w-[40px] h-[40px] rounded-full bg-center bg-cover' src={post.user.profileImg} alt='User'/>
                                 : <div className='w-[40px] h-[40px] rounded-full bg-center bg-cover bg-[#222]'></div>}
                                 <p className='pl-3'>{post?.user.username}</p>
                             </Link>
@@ -107,7 +103,7 @@ const page = async (props: Props) => {
         
                                 {post.DisLikedPosts.length === 0 ? 
                                 <DislikePostBtn disLikes={post.disLikes} postId={post.id} userId={session?.user.id} liked={false}/>
-                                : post.LikedPosts.length === 1 ? 
+                                : post.DisLikedPosts.length === 1 ? 
                                 <DislikePostBtn disLikes={post.disLikes} postId={post.id} userId={session?.user.id} liked={true}/> : null}
 
                                 <div className='flex flex-col items-center sm:flex-row'>
@@ -115,20 +111,20 @@ const page = async (props: Props) => {
                                     <p className='sm:pl-2 text-sm sm:text-base'>{post.PostComments.length}</p>
                                 </div>
                             </div>
-                            {session && post.SavedPosts.map((item) => {
+                            {session && post.SavedPosts.map((item, key) => {
                                 if(item.postsId === post.id && item.usersId === session.user.id){
-                                    return <SavePostBtn saved={true} id={post.id} username={session.user.username}/>
+                                    return <SavePostBtn saved={true} id={post.id} username={session.user.username} key={key}/>
                                 }
                                 else{
-                                    return <SavePostBtn saved={false} id={post.id} username={session.user.username}/>
+                                    return <SavePostBtn saved={false} id={post.id} username={session.user.username} key={key}/>
                                 }
                             })}
                         </div>
                         <div className='flex flex-col w-full'>
-                            <AddCommentForm userId={post.user.id} postId={post.id}/>
+                            {session && <AddCommentForm userId={session?.user.id} postId={post.id}/>}
                             {post.PostComments.length === 0 ? null
-                            : post.PostComments.map((item) => (
-                                <div className='flex mb-3 justify-between'>
+                            : post.PostComments.map((item, key) => (
+                                <div className='flex mb-3 justify-between' key={key}>
                                     <p className='w-10/12 text-sm sm:text-base text-gray-300'><span className='font-medium tracking-wide text-white'>{item.user.username}</span> {item.text}</p>
                                 </div>
                             ))}

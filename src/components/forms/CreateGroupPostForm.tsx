@@ -1,8 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from "react";
-import PostImage from '@/static/images/postImage.png'
-import GroupImage from '@/static/images/shortImg.jpeg'
+import Image from 'next/image';
 
 type Props = {
   username: string,
@@ -78,7 +77,7 @@ const CreateGroupPostForm = (props: Props) => {
         <label className='mt-2 pb-3 tracking-wide border-b border-b-[#111] w-full font-medium'>Images</label>
         <div className='grid grid-cols-1 gap-5 sm:grid-cols-2'>
           {base64 && (
-            <img src={base64} className='rounded-md aspect-square mt-5' alt='Post'/>
+            <div style={{width: '100%', height: '100%', position: 'relative'}}><img src={base64} className='rounded-md aspect-square mt-5' alt='Post'/></div>
           )}
         </div>
         <input type="file" name="avatar" accept="image/*" onChange={onFileChange} className='mt-5'/>
@@ -90,7 +89,8 @@ const CreateGroupPostForm = (props: Props) => {
       <div className='flex flex-col items-start justify-center px-4 w-full py-1 mt-5 rounded-md bg-[#060606]'>
         <label className='mt-2 pb-3 tracking-wide border-b border-b-[#111] w-full font-medium'>Group</label>
         <div className='flex flex-row items-center justify-start py-3'>
-          <img src={GroupImage.src} className='rounded-md aspect-square h-[40px] w-[40px] mr-3' alt='Group'/>
+          {props.group.image != null ? <img src={props.group.image} className='rounded-md aspect-square h-[40px] w-[40px] mr-3' alt='Group'/>
+          : <div className='rounded-md aspect-square h-[40px] w-[40px] mr-3 bg-[#222]'></div>}
           <p>{props.group.name}</p>
         </div>
       </div>

@@ -73,7 +73,8 @@ export default async function Home() {
         },
         _count: true
       },
-      take: 3
+      take: 3,
+      orderBy: {createdAt: 'desc'}
     },
     LikedPosts: {
       where: {usersId: session?.user.id},

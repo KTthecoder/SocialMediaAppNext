@@ -10,6 +10,7 @@ import { authOptions } from '@/lib/auth';
 import LogoutBtn from '@/components/LogoutBtn';
 import AddToFriendBtn from '@/components/AddToFriendBtn';
 import DeleteFriendBtn from '@/components/DeleteFriendBtn';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Account | SocialMediaApp',
@@ -30,6 +31,7 @@ const page = async (props: Props) => {
     id: true
   }})
   const currentUser = await prisma.users.findFirst({where: {username: session?.user.username}, select: {
+    id: true,
     username: true,
     profileImg: true,
     profileImgAlt: true,
@@ -58,7 +60,8 @@ const page = async (props: Props) => {
           }
         }
       },
-      take: 3
+      take: 3,
+      orderBy: {createdAt: 'desc'}
     },
     LikedPosts: {
       where: {usersId: session?.user.id},
@@ -77,12 +80,14 @@ const page = async (props: Props) => {
     _count: {select: {UserInGroup: true}}
   }})
   const postsCount = await prisma.posts.count({where: {usersId: user?.id}})
-  const friendsCount = await prisma.friends.count({ where: {
+  const friendsCount = await prisma.friends.findMany({ where: {
     OR: [{
       user1Id: user?.id,
+      user2Id: currentUser?.id
     }, {
+      user1Id: currentUser?.id,
       user2Id: user?.id
-    }]
+    }],
   }})
   const groupsCount = await prisma.groups.count({where: {UserInGroup: {some: {usersId: user?.id}}}})
 
@@ -98,9 +103,9 @@ const page = async (props: Props) => {
           <div className='flex flex-row items-start justify-between'>
             <div className='flex flex-col'>
               {session?.user.username === user.username && currentUser?.profileImg != null 
-              ? <img className='w-[70px] aspect-square rounded-full' src={currentUser?.profileImg?.toString()} alt={currentUser?.profileImgAlt?.toString()}/>
+              ? <Image width={0} height={0} sizes={'100%'} className='w-[70px] aspect-square rounded-full' src={currentUser?.profileImg?.toString()} alt={currentUser.profileImgAlt != null ? currentUser.profileImgAlt?.toString() : ''}/>
               : session?.user.username != user.username && user.profileImg != null ?
-              <img className='w-[70px] aspect-square rounded-full' src={user.profileImg.toString()} alt={user.profileImgAlt?.toString()}/>
+              <Image width={0} height={0} sizes={'100%'} className='w-[70px] aspect-square rounded-full' src={user.profileImg.toString()} alt={user.profileImgAlt != null ? user.profileImgAlt?.toString() : ''}/>
               : <div className='w-[70px] aspect-square rounded-full bg-[#222]'></div>}
               <p className='mt-3 tracking-wider font-medium sm:mt-4'>{user?.username}</p>
             </div>
@@ -110,7 +115,7 @@ const page = async (props: Props) => {
                 <p className='text-gray-300'>Posts</p>
               </div>
               <Link href='/account/friends' className='flex flex-col items-center justify-center mx-4'>
-                <p>{friendsCount}</p>
+                <p>{friendsCount.length}</p>
                 <p className='text-gray-300'>Friends</p>
               </Link>
               <Link href='/groups' className='flex flex-col items-center justify-center'>
@@ -127,10 +132,10 @@ const page = async (props: Props) => {
               <Link href='/account/your-groups' className='bg-[#111] rounded-md px-4 mr-4 py-1 mt-4'>Your groups</Link>
               <LogoutBtn/>
             </div>
-            : session?.user.username != user.username && friendsCount === 0 ?
-              <AddToFriendBtn user1Id={session?.user.id} user2Id={user.id}/>
-            : session?.user.username != user.username && friendsCount === 1 ?
-              <DeleteFriendBtn user1Id={session?.user.id} user2Id={user.id}/>
+            : currentUser?.username != user.username && friendsCount.length === 0 ?
+              <AddToFriendBtn user1Id={currentUser?.id} user2Id={user.id}/>
+            : currentUser?.username != user.username && friendsCount.length === 1 ?
+              <DeleteFriendBtn user1Id={currentUser?.id} user2Id={user.id}/>
             : null}
           </div>
           <div className='flex flex-col mb-10 border-b border-b-[#111] pb-5 mt-8'>

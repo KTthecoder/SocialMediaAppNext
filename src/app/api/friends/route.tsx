@@ -43,7 +43,7 @@ export async function DELETE(req:Request){
             return NextResponse.json({message: 'User with that id does not exists'}, {status: 409})
         }
 
-        const existingInvitationByUsers = await prisma.friends.findFirst({where: {user1Id: user1Id, user2Id: user2Id}})
+        const existingInvitationByUsers = await prisma.friends.findFirst({where: {OR: [{user1Id: user1Id, user2Id: user2Id}, {user1Id: user2Id, user2Id: user1Id}]}})
         if(!existingInvitationByUsers){
             return NextResponse.json({message: 'Invitation with that credentials does not exists'}, {status: 409})
         }

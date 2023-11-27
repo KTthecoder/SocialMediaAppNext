@@ -57,7 +57,7 @@ const page = async (props: Props) => {
                 <div className='flex flex-col mb-7 border-b border-b-[#111] pb-5'>
                     <h1 className='text-2xl tracking-wider pt-3 flex items-center'><LuUsers size={25} className='mr-3'/>People</h1>
                 </div>
-                {people.length === 0 ? <h1 className='-mt-5'>Can't find users</h1> : people.map((item, key) => (
+                {people.length === 0 ? <h1 className='-mt-5'>Can&apos;t find users</h1> : people.map((item, key) => (
                     <FriendHorizontal username={item.username} description={item.description} profileImg={item.profileImg} profileImgAlt={item.profileImgAlt} key={key}/>
                 ))}
             </div>

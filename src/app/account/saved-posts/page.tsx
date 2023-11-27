@@ -50,7 +50,8 @@ const page = async () => {
               }
             }
           },
-          take: 3
+          take: 3,
+          orderBy: {createdAt: 'desc'}
         },
         LikedPosts: {
           where: {usersId: session?.user.id},

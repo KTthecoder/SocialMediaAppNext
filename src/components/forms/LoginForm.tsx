@@ -19,7 +19,7 @@ const LoginForm = () => {
     })
   
     if(!signInData?.ok){
-      console.log('error occured')
+      alert('error occured')
     } else {
       router.push('/')
       router.refresh()

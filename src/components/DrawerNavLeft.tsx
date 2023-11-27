@@ -3,7 +3,6 @@ import Link from "next/link";
 import { LuUsers } from "react-icons/lu";
 import { MdSaveAlt } from "react-icons/md";
 import { GrGroup } from "react-icons/gr";
-import UserImage from '@/static/images/shortImg.jpeg'
 import { FaChevronDown } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import DrawerGroup from "./DrawerGroup";
@@ -62,7 +61,7 @@ const DrawerNavLeft = (props: Props) => {
             : 
             <>
                 <Link className={`${pathname.startsWith(`/account/${props.user?.username}`) ? 'border-b-blue-500 text-blue-500' : null} flex items-center justify-start w-full border-b-[#222] border-b pb-5`} href={`/account/${props.user?.username}`}>
-                    {props.user?.profileImg != null ? <img className="w-[40px] h-[40px] rounded-full" src={props.user?.profileImg} alt={props.user?.profileImgAlt}/>
+                    {props.user?.profileImg != null ? <img className="w-[40px] h-[40px] rounded-full" src={props.user?.profileImg} alt={props.user.profileImgAlt != null ? props.user?.profileImgAlt : ''}/>
                     : <div className="w-[40px] h-[40px] rounded-full bg-[#222]"></div>}
                     <p className="pl-3">{props.user?.username}</p>
                 </Link>

@@ -28,7 +28,9 @@ const page = async (props: Props) => {
   }})
   const group = await prisma.groups.findFirst({where: {id: props.params.slug}, select: {
     name: true,
-    id: true
+    id: true,
+    image: true,
+    imageAlt: true
   }})
   const groups = await prisma.groups.findMany({where: {UserInGroup: {some: {usersId: user?.id}}}, include: {
     _count: {select: {UserInGroup: true}}
@@ -46,7 +48,7 @@ const page = async (props: Props) => {
           <div className='flex flex-col mb-6 border-b border-b-[#111] pb-5'>
             <h1 className='text-2xl tracking-wider pt-3 flex items-center'><RiPlayListAddFill size={25} className='mr-3'/>Create Post In Group</h1>
           </div>
-          <CreateGroupPostForm username={user.username} group={{id: props.params.slug, image: '', name: group?.name}}/>
+          <CreateGroupPostForm username={user.username} group={{id: props.params.slug, image: group?.image != null ? group.image : '', name: group?.name}}/>
         </div>
         <div className="hidden xl:flex flex-col lg:w-3/12 lg:max-w-[270px]"></div>
       </div>

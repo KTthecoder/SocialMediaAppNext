@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { FormEvent, useEffect, useState } from 'react'
@@ -77,9 +78,8 @@ const EditAccountForm = (props: Props) => {
             <div className='flex flex-col items-center justify-center'>
                 {base64 != null ? 
                 <img src={base64} className='w-[70px] aspect-square rounded-full' alt='Post'/>
-                : <img className='w-[70px] aspect-square rounded-full bg-[#222]' src={props.profileImg?.toString()} alt={props.profileImgAlt?.toString()}/>}
+                : <img className='w-[70px] aspect-square rounded-full bg-[#222]' src={props.profileImg != null ? props.profileImg?.toString() : ''} alt={props.profileImgAlt != null ? props.profileImgAlt?.toString() : ''}/>}
                 <input type="file" name="avatar" accept="image/*" onChange={onFileChange} className='my-5' />
-                {/* <button className='text-blue-500 mt-4'>Change image</button> */}
             </div>
             <div className='flex flex-col items-start justify-center px-4 w-full py-1 rounded-md bg-[#060606]'>
                 <label className='mt-2 pb-3 tracking-wide border-b border-b-[#111] w-full font-medium'>Username</label>

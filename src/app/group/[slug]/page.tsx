@@ -55,7 +55,8 @@ const page = async (props: Props) => {
           }
         }
       },
-      take: 3
+      take: 3,
+      orderBy: {createdAt: 'desc'}
     },
     LikedPosts: {
       where: {usersId: session?.user.id},

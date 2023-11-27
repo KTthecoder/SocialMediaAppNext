@@ -60,7 +60,8 @@ const page = async (props: Props) => {
                     }
                 }
             },
-            take: 3
+            take: 3,
+            orderBy: {createdAt: 'desc'}
         },
         PostImages: {select: {
             src: true, 

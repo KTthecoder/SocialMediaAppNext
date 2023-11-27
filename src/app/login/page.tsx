@@ -27,7 +27,7 @@ const page = () => {
                 <h1 className='font-medium text-3xl tracking-wide leading-9'>Hello,</h1>
                 <h2 className='font-medium text-3xl tracking-wide leading-9'>Welcome back!</h2>
                 <LoginForm/>
-                <p className='mt-4'>Don't have an account?<Link href='/create-account' className='text-blue-500 pl-1'>Click Here</Link></p>
+                <p className='mt-4'>Don&apos;t have an account?<Link href='/create-account' className='text-blue-500 pl-1'>Click Here</Link></p>
             </div>
         </div>
     </div>
