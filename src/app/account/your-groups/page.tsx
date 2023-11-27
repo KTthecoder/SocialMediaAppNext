@@ -35,12 +35,12 @@ const page = async () => {
         <DrawerNavLeft groups={groupsCounter} user={{username: user?.username, profileImg: user?.profileImg?.toString(), profileImgAlt: user?.profileImgAlt?.toString()}}/>
         <div className='flex flex-col w-full md:w-[600px] lg:w-7/12 xl:w-5/12'>
           <div className='flex flex-col mb-7 border-b border-b-[#111] pb-5 sm:justify-between sm:flex-row sm:w-full'>
-            <h1 className='text-2xl tracking-wider pt-3 flex items-center'><GrGroup size={25} className='mr-3'/>Groups</h1>
+            <h1 className='text-2xl tracking-wider pt-3 flex items-center'><GrGroup size={25} className='mr-3'/>Your Groups</h1>
             <Link href='/create-group' className='bg-blue-500 rounded-md py-1 text-center w-36 mt-4 sm:py-2'>Create group</Link>
           </div>
           {groups.length === 0 ? <h1 className='-mt-2'>You are in 0 groups</h1> : 
           groups.map((item, key) => (
-            <GroupHorizontal isAdmin={false} username={user?.username} image={item.image != null ? item.image : ''} id={item.id} description={item.description} name={item.name} usersCount={item._count} visible={item.status} key={key}/>
+            <GroupHorizontal isAdmin={true} username={user?.username} image={item.image != null ? item.image : ''} id={item.id} description={item.description} name={item.name} usersCount={item._count} visible={item.status} key={key}/>
           ))}
           {groups.length < 3 ? null : <Link className='bg-[#0a0a0a] rounded-md py-2 text-center mb-5 mt-2' href='/search/groups/search-text'>Load more</Link>}
         </div>

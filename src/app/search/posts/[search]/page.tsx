@@ -59,7 +59,8 @@ const page = async (props: Props) => {
                         username: true,
                     }
                 }
-            }
+            },
+            take: 3
         },
         PostImages: {select: {
             src: true, 

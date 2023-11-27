@@ -31,6 +31,7 @@ const SavePostBtn = (props: Props) => {
 
             if(res.status === 201){
                 setSavedPost(true)
+                route.refresh()
             }
             else{
                 alert('Error occured while saving post')
@@ -39,11 +40,6 @@ const SavePostBtn = (props: Props) => {
     }
 
     return (
-        // <button className='flex flex-col items-center' onClick={() => {
-        //     savedPost === false ? savePost() : route.push('/login')
-        // }} disabled={savedPost === false ? false : true}>
-        //     <MdSaveAlt className={`${savedPost === false ? 'text-white' : 'text-gray-500'} text-[22px] sm:text-[24px]`}/>
-        // </button>
         <>
             {savedPost === true ? 
             <button className='flex flex-col items-center sm:flex-row' disabled>

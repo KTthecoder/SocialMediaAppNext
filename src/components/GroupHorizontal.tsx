@@ -1,6 +1,6 @@
 import React from 'react'
-import UserImage from '@/static/images/shortImg.jpeg'
 import Link from 'next/link'
+import DeleteGroupBtn from './DeleteGroupBtn'
 
 type Props = {
   image: string,
@@ -11,6 +11,8 @@ type Props = {
     UserInGroup: number
   },
   id: string,
+  username: string | undefined,
+  isAdmin: boolean,
 }
 
 const GroupHorizontal = (props: Props) => {
@@ -24,7 +26,10 @@ const GroupHorizontal = (props: Props) => {
           <p className='text-gray-200 tracking-wide mb-3 text-sm'>{props.visible.toLocaleLowerCase()} · {props.usersCount.UserInGroup} users</p>
           <p className='hidden sm:flex -mt-2 text-sm text-gray-300 tracking-wide'>{props.description}</p>
         </div>
-        <Link className='bg-blue-500 py-1 tracking-wide rounded-md items-center flex justify-center sm:w-[50px] sm:flex-none sm:h-[40px] sm:px-10' href={`/group/${props.id}`}>Show</Link>
+        <div className='flex'>
+          {props.isAdmin === true ? <DeleteGroupBtn username={props.username != null ? props.username : ''} groupId={props.id}/> : null}
+          <Link className='bg-blue-500 py-1 px-5 tracking-wide rounded-md items-center flex justify-center sm:w-[50px] sm:flex-none sm:h-[40px] sm:px-10' href={`/group/${props.id}`}>Show</Link>
+        </div>
       </div>
     </div>
   )

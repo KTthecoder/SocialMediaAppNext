@@ -72,7 +72,8 @@ export default async function Home() {
           }
         },
         _count: true
-      }
+      },
+      take: 3
     },
     LikedPosts: {
       where: {usersId: session?.user.id},

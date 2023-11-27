@@ -79,7 +79,7 @@ const Article = async (props: Props) => {
                         <p className='w-10/12 text-sm sm:text-base text-gray-300'><span className='font-medium tracking-wide text-white'>{item.user.username}</span> {item.text}</p>
                     </div>
                 ))}
-                {props.comments.length === 0 ? null : props.comments.length >= 3 ? <Link href='/post/post-slug' className='text-blue-500'>Show more</Link> : null}
+                {props.comments.length === 0 ? null : props.comments.length >= 3 ? <Link href={`/post/${props.id}`} className='text-blue-500'>Show more</Link> : null}
             </div>
         </div>
     )

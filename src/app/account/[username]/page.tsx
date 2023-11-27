@@ -1,7 +1,6 @@
 import Article from '@/components/Article'
 import DrawerNavLeft from '@/components/DrawerNavLeft'
 import type { Metadata } from 'next'
-import ProfileImg from '@/static/images/shortImg.jpeg'
 import { MdOutlineArticle } from "react-icons/md";
 import Link from 'next/link';
 import prisma from '@/lib/db';
@@ -58,7 +57,8 @@ const page = async (props: Props) => {
             username: true,
           }
         }
-      }
+      },
+      take: 3
     },
     LikedPosts: {
       where: {usersId: session?.user.id},
@@ -119,11 +119,12 @@ const page = async (props: Props) => {
               </Link>
             </div>
           </div>
-          <p className='text-sm mt-2 sm:text-base text-gray-200'>{user?.description}</p>
-          <div className='mt-4'>
+          <p className='text-sm mt-2 mb-3 sm:text-base text-gray-200'>{user?.description}</p>
+          <div>
             {session?.user.username === user.username ?
-            <div className='flex flex-row'>
-              <Link href='/account/edit-account' className='bg-[#111] rounded-md px-4 mr-4 py-1'>Edit profile</Link>
+            <div className='flex flex-row flex-wrap'>
+              <Link href='/account/edit-account' className='bg-[#111] rounded-md px-4 mr-4 py-1 mt-4'>Edit profile</Link>
+              <Link href='/account/your-groups' className='bg-[#111] rounded-md px-4 mr-4 py-1 mt-4'>Your groups</Link>
               <LogoutBtn/>
             </div>
             : session?.user.username != user.username && friendsCount === 0 ?

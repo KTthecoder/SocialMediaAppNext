@@ -54,7 +54,8 @@ const page = async (props: Props) => {
             username: true,
           }
         }
-      }
+      },
+      take: 3
     },
     LikedPosts: {
       where: {usersId: session?.user.id},

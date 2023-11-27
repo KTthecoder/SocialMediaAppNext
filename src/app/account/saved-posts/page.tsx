@@ -49,7 +49,8 @@ const page = async () => {
                 username: true,
               }
             }
-          }
+          },
+          take: 3
         },
         LikedPosts: {
           where: {usersId: session?.user.id},
