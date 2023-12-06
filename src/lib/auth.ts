@@ -4,12 +4,6 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "./db";
 
-type ReqType = {
-    headers: {
-        host: string
-    }
-}
-
 export const authOptions:NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
     session: {
