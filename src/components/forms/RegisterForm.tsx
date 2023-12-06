@@ -11,7 +11,7 @@ const RegisterForm = () => {
   const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    const res = await fetch(`${process.env.MAIN_URL}/api/user`, {
+    const res = await fetch(`https://social-media-app-next-8yy8s23ac-ksawerys-projects-dafd64ce.vercel.app/api/user`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -30,6 +30,8 @@ const RegisterForm = () => {
       alert('error occured')
     }
   }
+
+  console.log(`${process.env.MAIN_URL}/api/user`)
 
   return (
     <form onSubmit={handleSubmit} className='flex flex-col justify-center w-full'>

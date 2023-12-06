@@ -12,7 +12,7 @@ const AddToFriendBtn = (props: Props) => {
 
   const addToFriend = async () => {
     if(props.user1Id && props.user2Id){
-      const res = await fetch(`${process.env.MAIN_URL}/api/friends`, {
+      const res = await fetch(`https://social-media-app-next-8yy8s23ac-ksawerys-projects-dafd64ce.vercel.app/api/friends`, {
         headers: {
           'Content-Type': 'application/json',
         },

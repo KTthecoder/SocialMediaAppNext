@@ -13,7 +13,7 @@ const AddCommentForm = (props: Props) => {
 
     const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const res = await fetch(`${process.env.MAIN_URL}/api/comment`, {
+        const res = await fetch(`https://social-media-app-next-8yy8s23ac-ksawerys-projects-dafd64ce.vercel.app/api/comment`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -14,7 +14,7 @@ const LikePostBtn = (props: Props) => {
     const route = useRouter()
 
     const handleClick = async () => {
-        const res = await fetch(`${process.env.MAIN_URL}/api/like-post`, {
+        const res = await fetch(`https://social-media-app-next-8yy8s23ac-ksawerys-projects-dafd64ce.vercel.app/api/like-post`, {
             headers: {
                 'Content-Type': 'application/json'
             },
