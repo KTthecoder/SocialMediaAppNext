@@ -16,7 +16,7 @@ const FriendBlock = (props: Props) => {
   const route = useRouter()
 
   const acceptInvite = async () => {
-    const res = await fetch('http://localhost:3000/api/friend-invitation', {
+    const res = await fetch('https://social-media-app-next.vercel.app/api/friend-invitation', {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -35,7 +35,7 @@ const FriendBlock = (props: Props) => {
   }
 
   const declineInvite = async () => {
-    const res = await fetch('http://localhost:3000/api/friend-invitation', {
+    const res = await fetch('https://social-media-app-next.vercel.app/api/friend-invitation', {
       headers: {
         'Content-Type': 'application/json',
       },

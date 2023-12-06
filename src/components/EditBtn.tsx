@@ -12,7 +12,7 @@ const EditBtn = (props: Props) => {
     const route = useRouter()
 
     const handleClick = async () => {
-        const res = await fetch('http://localhost:3000/api/post', {
+        const res = await fetch('https://social-media-app-next.vercel.app/api/post', {
             headers: {
                 'Content-Type': 'application/json',
             },

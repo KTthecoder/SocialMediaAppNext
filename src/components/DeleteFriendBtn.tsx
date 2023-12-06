@@ -11,7 +11,7 @@ const DeleteFriendBtn = (props: Props) => {
     const route = useRouter()
 
     const declineInvite = async () => {
-        const res = await fetch('http://localhost:3000/api/friends', {
+        const res = await fetch('https://social-media-app-next.vercel.app/api/friends', {
           headers: {
             'Content-Type': 'application/json',
           },
