@@ -4,6 +4,12 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "./db";
 
+type ReqType = {
+    headers: {
+        host: string
+    }
+}
+
 export const authOptions:NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
     session: {
@@ -20,25 +26,30 @@ export const authOptions:NextAuthOptions = {
             email: { label: "Email", type: "text", placeholder: "ksawery@mail.com" },
             password: { label: "Password", type: "password" }
           },
-          async authorize(credentials) {
-            if(!credentials?.email || !credentials.password){
-                return null
+          async authorize(credentials, req:any) {
+            if(req.headers.host == 'https://social-media-app-next.vercel.app/'){
+                if(!credentials?.email || !credentials.password){
+                    return null
+                }
+    
+                const existingUser = await prisma.users.findUnique({where: {email: credentials?.email}})
+                if(!existingUser){
+                    return null
+                }
+    
+                const passwordMatch = await compare(credentials.password, existingUser.password)
+                if(!passwordMatch){
+                    return null
+                }
+    
+                return {
+                    id: existingUser.id.toString(),
+                    username: existingUser.username,
+                    email: existingUser.email
+                }
             }
-
-            const existingUser = await prisma.users.findUnique({where: {email: credentials?.email}})
-            if(!existingUser){
+            else{
                 return null
-            }
-
-            const passwordMatch = await compare(credentials.password, existingUser.password)
-            if(!passwordMatch){
-                return null
-            }
-
-            return {
-                id: existingUser.id.toString(),
-                username: existingUser.username,
-                email: existingUser.email
             }
           }
         })
