@@ -18,7 +18,7 @@ const CreatePostForm = (props: Props) => {
     const base64 = await toBase64(file as File);
     setBase64(base64 as string);
 
-    const res = await fetch(`https://social-media-app-next-8yy8s23ac-ksawerys-projects-dafd64ce.vercel.app/api/post`, {
+    const res = await fetch(`https://social-media-app-next.vercel.app/api/post`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

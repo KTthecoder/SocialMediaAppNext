@@ -11,7 +11,7 @@ const RegisterForm = () => {
   const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    const res = await fetch(`https://social-media-app-next-8yy8s23ac-ksawerys-projects-dafd64ce.vercel.app/api/user`, {
+    const res = await fetch(`https://social-media-app-next.vercel.app/api/user`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

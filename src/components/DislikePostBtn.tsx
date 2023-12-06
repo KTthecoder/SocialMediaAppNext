@@ -14,7 +14,7 @@ const DislikePostBtn = (props: Props) => {
     const route = useRouter()
 
     const handleClick = async () => {
-        const res = await fetch(`https://social-media-app-next-8yy8s23ac-ksawerys-projects-dafd64ce.vercel.app/api/dislike-post`, {
+        const res = await fetch(`https://social-media-app-next.vercel.app/api/dislike-post`, {
             headers: {
                 'Content-Type': 'application/json'
             },

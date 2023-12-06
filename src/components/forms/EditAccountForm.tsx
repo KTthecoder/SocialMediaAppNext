@@ -23,7 +23,7 @@ const EditAccountForm = (props: Props) => {
         e.preventDefault()
         const base64 = await toBase64(file as File);
         setBase64(base64 as string);
-        const res = await fetch(`https://social-media-app-next-8yy8s23ac-ksawerys-projects-dafd64ce.vercel.app/api/user`, {
+        const res = await fetch(`https://social-media-app-next.vercel.app/api/user`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
