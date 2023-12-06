@@ -27,7 +27,8 @@ export const authOptions:NextAuthOptions = {
             password: { label: "Password", type: "password" }
           },
           async authorize(credentials, req:any) {
-            if(req.headers.host == 'https://social-media-app-next.vercel.app/'){
+            // if(req.headers.host == 'https://social-media-app-next.vercel.app/'){
+                console.log(req.headers.host)
                 if(!credentials?.email || !credentials.password){
                     return null
                 }
@@ -47,10 +48,10 @@ export const authOptions:NextAuthOptions = {
                     username: existingUser.username,
                     email: existingUser.email
                 }
-            }
-            else{
-                return null
-            }
+            // }
+            // else{
+            //     return null
+            // }
           }
         })
     ],
