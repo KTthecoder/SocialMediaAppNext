@@ -22,7 +22,7 @@ const CreateGroupPostForm = (props: Props) => {
     const formData = new FormData(e.currentTarget)
     const base64 = await toBase64(file as File);
     setBase64(base64 as string);
-    const res = await fetch('https://social-media-app-next.vercel.app/api/post-group', {
+    const res = await fetch(`${process.env.MAIN_URL}/api/post-group`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

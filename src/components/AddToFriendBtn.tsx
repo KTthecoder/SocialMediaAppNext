@@ -12,7 +12,7 @@ const AddToFriendBtn = (props: Props) => {
 
   const addToFriend = async () => {
     if(props.user1Id && props.user2Id){
-      const res = await fetch('http://localhost:3000/api/friends', {
+      const res = await fetch(`${process.env.MAIN_URL}/api/friends`, {
         headers: {
           'Content-Type': 'application/json',
         },

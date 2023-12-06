@@ -12,7 +12,7 @@ const DeleteGroupBtn = (props: Props) => {
     const route = useRouter()
 
     const handleClick = async () => {
-        const res = await fetch('https://social-media-app-next.vercel.app/api/group', {
+        const res = await fetch(`${process.env.MAIN_URL}/api/group`, {
             headers: {
                 'Content-Type': 'application/json'
             },

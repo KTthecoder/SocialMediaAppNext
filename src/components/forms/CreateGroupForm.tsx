@@ -16,7 +16,7 @@ const CreateGroupForm = (props: Props) => {
   const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    const res = await fetch('https://social-media-app-next.vercel.app/api/group', {
+    const res = await fetch(`${process.env.MAIN_URL}/api/group`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

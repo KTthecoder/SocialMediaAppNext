@@ -18,7 +18,7 @@ const SavePostBtn = (props: Props) => {
             route.push('/login')
         }
         else{
-            const res = await fetch('https://social-media-app-next.vercel.app/api/posts-save', {
+            const res = await fetch(`${process.env.MAIN_URL}/api/posts-save`, {
                 headers: {
                     'Content-Type': 'appliaction/json',
                 },
